@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  {% get_static_prefix as STATIC_PREFIX %}
+  <body style="background-image:url('{{ STATIC_PREFIX }}orange/css/propics/logoutback.jpg');background-repeat:no-repeat;">
+
+<div id="url" hidden>
+  {{url}}
+</div>
+
+
+  </body>
+
+<script type="text/javascript" src="{% static 'orange/js/thanks.js' %}"></script>
+
+</html>

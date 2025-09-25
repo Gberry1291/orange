@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="shortcut icon" type="image/png" href="{% static 'orange/favicon/favicon.ico' %}"/>
+  <link rel="stylesheet"  href="{% static 'orange/css/nav.css' %}">
+  <script src="{% static 'orange\jquery-3.6.0.min.js' %}"></script>
+
+
+  <body>
+
+    <div class="navbar" id=navbar>
+      <div class="left">
+        <div class="navitemsmall slideit">
+          <div class="center menuclip"></div>
+        </div>
+        <a class="navitem" href="{% url 'home' %}">
+          <div class="orangehouse">
+            <div class="orangeclip"></div>
+            <div class="leafclip"></div>
+          </div>
+          <div class="fullfill">
+            <div class="center orangetext">
+              rangerie
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="right">
+        <a  href="{% url 'calander' %}" id="calander" class="calhouse" >
+          <div class="fullfill month"><div id="monthnav" class="center">Month</div></div>
+          <div class="fullfill navday"><div id="daynav" class="center">28</div></div>
+          <div class="fullfill weekday"><div id="daydaynav" class="center">friday</div></div>
+        </a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'profile' %}" id="settings" class="navitemsmall profileback" ><div class="center profileclip"></div></a>
+          <form class="navitem reversenavitem form" method="post" action="{% url 'accounts:logout' %}">
+              {% csrf_token %}
+              <button type="submit" id="logout" class="fullfill">
+                <p class="center">log out</p>
+              </button>
+          </form>
+        {% else %}
+          <div class="navitem reversenavitem slideit">
+            <div class="center white">Sign up</div>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+
+
+
+    <div class="signin" id="signslide">
+      <div class="signintop">
+        <div id="closesigning" class="x">
+          <div class="xclip"></div>
+        </div>
+      </div>
+      <div id="signin">
+        <form method="post" action="{% url 'signin' %}">
+          {% csrf_token %}
+          <div id="userdiv" class="userdiv">
+            <div class="fullfill">
+              <div class="userpic"></div>
+            </div>
+            <input type="email" id="userinput" class="fullfill removeall" name="username" value="" placeholder="E-mail" autocomplete="on" required>
+            <div class="fullfill">
+              <p class="userforgot center">FORGOT?</p>
+            </div>
+          </div>
+          <div id="passdiv" class="userdiv">
+            <div class="fullfill">
+              <div class="lockclip"></div>
+            </div>
+            <input type="password" id="passinput" class="fullfill removeall" name="password" value="" placeholder="Password">
+            <div class="fullfill">
+              <p class="userforgot center">FORGOT?</p>
+            </div>
+          </div>
+           <input type="hidden" name="next" value="{{ request.path }}">
+          <button type="submit" name="sub" value="login" id="signinbutton">Log In</button>
+          <button type="submit" name="sub" value="signup" id="signinbutton2">Sign Up</button>
+          <!-- <div id="signupbutton">Sign up</div> -->
+        </form>
+
+        <div id="linediv"></div>
+
+        <div id="signinbot1" class="signbotdiv" style="display:table;">
+          <div style="display:table-cell;vertical-align:middle;">
+            <div>Policies</div>
+          </div>
+        </div>
+        <div id="signinbot2" class="signbotdiv" style="display:table;">
+          <div style="display:table-cell;vertical-align:middle;">
+            <div>About Us</div>
+          </div>
+        </div>
+        <div id="signinbot3" class="signbotdiv" style="display:table;">
+          <div style="display:table-cell;vertical-align:middle;">
+            <div>Help</div>
+          </div>
+        </div>
+        <div id="signinbot4" class="signbotdiv" style="display:table;">
+          <div style="display:table-cell;vertical-align:middle;">
+            <div>English</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+{% block pregroup %}{% endblock %}
+
+<script type="text/javascript" src="{% static 'orange/js/nav.js' %}"></script>
+
+  </body>
+</html>

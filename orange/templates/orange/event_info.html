@@ -1,0 +1,77 @@
+{% extends 'orange/nav.html' %}
+{% load static %}
+
+{% block pregroup %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+    <link rel="stylesheet" href="{% static 'orange/css/event_info.css' %}">
+
+    <div class="event">
+      <div class="almostfullfill bigtext"><div class="center">{{event.name}}</div></div>
+      {% if event.mainpic %}
+        <img class="eventimagehouse"
+        style="background-image:url('{{ STATIC_PREFIX }}{{event.mainpic}}')"
+        width="{{ event.mainpic.width }}"
+        height="{{ event.mainpic.height }}"
+        ></img>
+      {% endif %}
+      <div class="almostfullfill mediumtext"><div class="center">{{event.description}}</div></div>
+      <div class="seperator"></div>
+      <div class="almostfullfill smalltext"><div class="center">Price: {{event.price}}</div></div>
+      <div class="seperator"></div>
+      {% if event.link_to_external_site %}
+        <a href="{{event.link_to_external_site}}" class="almostfullfill button smalltext"><div class="center">{{event.link_button_text}}</div></a>
+      {% endif %}
+
+      <div class="allmostfullfill mediumtext">
+        <div class="center">
+          Number of Attendies: {{ event.tendies.all|length }}
+        </div>
+      </div>
+
+      <div class="letusknowhouse">
+        {% if user.is_authenticated %}
+          <div class="letusknowbuttonhouse">
+              <div class="almostfullfill">
+                <div id="attendtext" class="center">
+                  {% if user in event.tendies.all %}
+                      You are Attending, cant make it? no problem.
+                    {% else %}
+                      Let
+                      {% if event.org %}{{event.org.name}}{% else %}{{event.user.email}}{% endif %}
+                      know your coming, and get updates via Email
+                  {% endif %}
+                </div>
+              </div>
+              <div data-type="attendevent" data-club="{{event.slug}}" id="joinevent" class="batterysize">
+                <div class="batterybutton deletefoodbutton batterytopcolor">
+                  <div class="fullfill batterytopcolor">
+                    <div class="clipstyle batteryclip batterybodycolor
+                    {% if user in event.tendies.all %}
+                      badguycolor
+                    {% endif %}"></div>
+                  </div>
+                  <div class="fullfill batterybodyclip batterybodycolor
+                  {% if user in event.tendies.all %}
+                    badguycolor
+                  {% endif %}">
+                    <div id="batterytextoption" class="center batterytext">
+                      {% if user in event.tendies.all %}
+                        Cancel attendance
+                        {% else %}
+                          Join Event!
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        {% else %}
+        {% endif %}
+      </div>
+
+    </div>
+
+<script type="text/javascript" src="{% static 'orange/js/event_info.js' %}"></script>
+
+  {% endblock %}

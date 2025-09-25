@@ -1,0 +1,144 @@
+{% extends 'orange/nav.html' %}
+{% load static %}
+
+{% block pregroup %}
+
+  <link rel="stylesheet" href="{% static 'orange/css/calander.css' %}">
+
+  <div class="legendhouse">
+    <div class="colorfill free">
+      <div class="center">free</div>
+    </div>
+    <div class="colorfill semi">
+      <div class="center">semi</div>
+    </div>
+    <div class="colorfill unavailable">
+      <div class="center">unavailable</div>
+    </div>
+    {% if user.is_authenticated %}
+      <div class="fullfill togevent">
+        <div class="removebutton deletefoodbutton">
+          <div class="fullfill trashhouse">
+            <div class="traschcan"></div>
+          </div>
+          <div class="fullfill removehouse">
+            <div class="center removetext">Add Event</div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="fullfill">
+        <div class="removebutton deletefoodbutton">
+          <div class="fullfill trashhouse">
+            <div class="traschcan"></div>
+          </div>
+          <div class="fullfill removehouse">
+            <div class="center removetext">Sign in to Post Events!</div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="calendar-container">
+
+    <div class="calanderhead calitem">
+      <div id="calendar-prev" class="calendar-navigation fullfill">
+        <div class="arrowhouse">
+          <div class="center arrowclip arrowleft"></div>
+        </div>
+      </div>
+
+      <div class="fullfill">
+        <p class="center calendar-current-date"></p>
+      </div>
+
+      <div id="calendar-next" class="calendar-navigation fullfill">
+        <div class="arrowhouse">
+          <div class="center arrowclip"></div>
+        </div>
+      </div>
+    </div>
+
+      <div class="calendar-body">
+          <div class="calendar-weekdays fullfill">
+              <li class="fullfill"><div class="center">Sun</div></li>
+              <li class="fullfill"><div class="center">Mon</div></li>
+              <li class="fullfill"><div class="center">Tue</div></li>
+              <li class="fullfill"><div class="center">Wed</div></li>
+              <li class="fullfill"><div class="center">Thu</div></li>
+              <li class="fullfill"><div class="center">Fri</div></li>
+              <li class="fullfill"><div class="center">Sat</div></li>
+          </div>
+          <div id="caldates" class="calendar-dates"></div>
+      </div>
+  </div>
+
+
+{{ daylist|json_script:"alldays" }}
+
+  <div class="daypage" id="daypage">
+    <div class="neweventhouse">
+      <div class="topbar">
+        <div class="x togday"><div class="xclip"></div></div>
+        <div class="selecthouse" id="selecthouse">
+          {% if user.is_authenticated %}
+            <select name="eventselect" id="eventselect">
+              <option value="none">Choose an Event</option>
+              {% for event in user.eventowner.all %}
+              <option value="{{event.name}}">{{event.name}}</option>
+              {% endfor %}
+              {% for organ in user.org_admin.all %}
+                {% for event in organ.event_set.all %}
+                  {% if event.user != user %}
+                    <option value="{{event.name}}">{{event.name}}</option>
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+              <option value="newevent">Create New</option>
+            </select>
+          {% endif %}
+        </div>
+        <div class="savedayhouse fullfill">
+          <div id="saveeventbutton" class="removebutton eventhousebutton">
+            <div class="fullfill trashhouse">
+              <div class="saveclip"></div>
+            </div>
+            <div id="savedaychanges" class="fullfill removehouse">
+              <div class="center removetext">Save Changes</div>
+            </div>
+          </div>
+          <div id="addeventbutton" class="removebutton eventhousebutton togevent">
+            <div class="fullfill trashhouse">
+              <div class="traschcan"></div>
+            </div>
+            <div class="fullfill removehouse">
+              <div class="center removetext">Add Event</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="daypagebody">
+        <div id="am" class="halfday am">
+          {% for x in theam %}
+             <a class="hour free">
+               <div class="center">{{x}}.uhr free</div>
+             </a>
+          {% endfor %}
+        </div>
+        <div id="pm" class="halfday pm">
+          {% for x in thepm %}
+             <a class="hour free">
+               <div class="center">{{x}}.uhr free</div>
+             </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% include "orange/new_event.html" with orgs=user.org_admin.all redirect=from %}
+
+<script type="text/javascript" src="{% static 'orange/js/calander.js' %}"></script>
+
+  {% endblock %}

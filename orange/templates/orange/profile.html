@@ -1,0 +1,289 @@
+{% extends 'orange/nav.html' %}
+{% load static %}
+
+{% block pregroup %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+{% if user.is_authenticated %}
+  <link rel="stylesheet" href="{% static 'orange/css/profile.css' %}">
+
+<div class="mininav">
+  <div class="mininavitem">
+    <div class="center">
+      Profile
+    </div>
+  </div>
+  <div class="mininavitem">
+    <div class="center">
+      Organizations
+    </div>
+  </div>
+  <div class="mininavitem">
+    <div class="center">
+      Event Manager
+    </div>
+  </div>
+</div>
+
+<div class="page selected">
+  <div class="profile">
+    <div class="pichouse">
+      {% if user.display_pic %}
+        <div class="pic" style="background-image:url('{{ STATIC_PREFIX }}{{ user.display_pic }}')"></div>
+      {% else %}
+        <div class="pic guest"></div>
+      {% endif %}
+    </div>
+
+    <div class="topinfohouse">
+      <div class="contacthouse">
+        <div class="center">{{ user.name }}</div>
+      </div>
+
+      <div class="contacthouse">
+        <div class="center">
+          {{ user.email }}
+        </div>
+      </div>
+    </div>
+
+    <div class="orghouse">
+      <div class="orgintro">
+        <div class="center">
+          Organizations
+        </div>
+      </div>
+      {% for thing in orgs %}
+        <div class="orgitem">
+          <div class="center">{{ thing }}</div>
+        </div>
+      {% empty %}
+        <div class="orgitem">
+          <div class="center">{{ user.username }} Is not a part of any Organizations</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="organizationbody">
+
+    <div class="orgbar">
+
+      <input id="searchinput" class="orginput" type="text" name="" value="" placeholder="Join an organization">
+      <div class="neworghouse togneworg"><div class="center">Create New Organization</div></div>
+    </div>
+    <div id="searchcontent" class="orgsearchresult"></div>
+
+    <div class="orgpage selected">
+      <div class="requesthouse">
+        <div class="admintitle">
+          <div class="center">You are a Member of:</div>
+        </div>
+      </div>
+      {% for membership in orgdic.myorgs %}
+        <div id="{{forloop.counter}}{{'membership.name'}}" class="doublehouse">
+          <div class="doubleout">
+          </div>
+          <div class="fullfill"><div class="center membertext">{{membership.name}}</div></div>
+          <div class="doubleout decline pullinfo" data-text="Are-you-sure-you-want-to-leave-{{membership.name}}?" data-whattodowith="{{forloop.counter}}{{'admin'}}" data-whattodo="delete" data-club="{{ membership.slug }}" data-type="leaveclub" data-name="">
+            <div class="doubletext declinetext fullfill"><div class="center">Leave</div></div>
+            <div class="declinebox cliphouse"></div>
+          </div>
+        </div>
+      {% empty %}
+      {% endfor %}
+
+      {% for admin in orgdic.myadmins %}
+        <div class="requesthouse">
+          <div class="admintitle">
+            <div class="center">Requests to join {{ admin.name }}</div>
+          </div>
+        </div>
+        {% for newbie in admin.requests %}
+          <div id="{{forloop.counter}}{{'admin'}}" class="doublehouse">
+            <div class="doubleout approve pullinfo" data-text="Are-you-sure-you-want-to-add-{{newbie}}?" data-whattodowith="{{forloop.counter}}{{'admin'}}" data-whattodo="delete" data-club="{{ admin.slug }}" data-type="approvemember" data-name="{{newbie}}">
+              <div class="doubletext approvetext fullfill"><div class="center">Approve</div></div>
+              <div class="approvebox cliphouse"></div>
+            </div>
+            <div class="fullfill"><div class="center">{{newbie}}</div></div>
+            <div class="doubleout decline pullinfo" data-text="Are-you-sure-you-want-to-deny-{{newbie}}?" data-whattodowith="{{forloop.counter}}{{'admin'}}" data-whattodo="delete" data-club="{{ admin.slug }}" data-type="declinemember" data-name="{{newbie}}">
+              <div class="doubletext declinetext fullfill"><div class="center">Decline</div></div>
+              <div class="declinebox cliphouse"></div>
+            </div>
+          </div>
+        {% empty %}
+            <div class="negvisit">
+              <div class="center">There are no new requests.</div>
+            </div>
+        {% endfor %}
+      {% endfor %}
+
+      {% for pres in orgdic.mypresidents %}
+        <div class="requesthouse">
+          <div class="admintitle">
+            <div class="center">You are the president of {{ pres.name }}</div>
+          </div>
+        </div>
+        {% for normie in pres.normies %}
+          <div id="{{forloop.counter}}{{'normie'}}" class="doublehouse">
+            <div class="doubleout approve pullinfo" data-text="Are-you-sure-you-want-to-promote-{{newbie}}?" data-whattodowith="{{forloop.counter}}{{'normie'}}" data-whattodo="delete" data-club="{{ pres.slug }}" data-type="promotemember" data-name="{{normie}}">
+              <div class="doubletext approvetext fullfill"><div class="center">Make Admin</div></div>
+              <div class="approvebox cliphouse"></div>
+            </div>
+            <div class="fullfill"><div class="center">{{normie}}</div></div>
+            <div class="doubleout decline pullinfo" data-text="Are-you-sure-you-want-to-remove-{{newbie}}?" data-whattodowith="{{forloop.counter}}{{'normie'}}" data-whattodo="delete" data-club="{{ pres.slug }}" data-type="kickmember" data-name="{{normie}}">
+              <div class="doubletext declinetext fullfill"><div class="center">Remove from Club</div></div>
+              <div class="declinebox cliphouse"></div>
+            </div>
+          </div>
+        {% endfor %}
+        {% for admini in pres.admins %}
+          <div id="{{forloop.counter}}{{'admini'}}" class="doublehouse">
+            <div class="doubleout">
+            </div>
+            <div class="fullfill"><div class="center">{{admini}}</div></div>
+            <div class="doubleout decline pullinfo" data-text="Are-you-sure-you-want-to-demote-{{newbie}}?" data-whattodowith="{{forloop.counter}}{{'admini'}}" data-whattodo="delete" data-club="{{ pres.slug }}" data-type="demotemember" data-name="{{admini}}">
+              <div class="doubletext declinetext fullfill"><div class="center">Demote</div></div>
+              <div class="declinebox cliphouse"></div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
+
+    </div>
+
+    <div class="orgpage" id="requestorgpage">
+
+      <div class="requesthouse makerequest">
+        <div id="requestbutton" class="visit">
+          <div id="requestmembertext" class="center">Request Membership</div>
+        </div>
+      </div>
+
+      <div class="requesthouse">
+        <div class="visit button">
+          <div class="center">
+            Visit Clubs home page
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="removebutton deletefoodbutton togeventwindow togevent">
+    <div class="fullfill trashhouse">
+      <div class="traschcan"></div>
+    </div>
+    <div class="fullfill removehouse">
+      <div class="center removetext">Add Event</div>
+    </div>
+  </div>
+
+  {% for event in user.eventowner.all %}
+    <div id="{{forloop.counter}}{{'event.slug'}}" class="doublehouse eventdoublehouse">
+      <div class="doubleout edit togevent"
+        data-name={{event.slug}}
+      >
+        <div class="doubletext approvetext fullfill"><div class="center">Edit</div></div>
+        <div class="pencilbox cliphouse"></div>
+      </div>
+      <div class="fullfill"><div class="center">{{event.name}}</div></div>
+      <div class="doubleout decline pullinfo" data-text="Are-you-sure-you-want-to-delte-{{event.name}}?" data-whattodowith="{{forloop.counter}}{{'event.slug'}}" data-whattodo="delete" data-club="{{ event.slug }}" data-type="deleteevent" data-name="">
+        <div class="doubletext declinetext fullfill"><div class="center">Delete</div></div>
+        <div class="declinebox cliphouse"></div>
+      </div>
+    </div>
+  {% endfor %}
+  {% for organ in user.org_admin.all %}
+    {% for event in organ.event_set.all %}
+      {% if event.user != user %}
+        <div id="{{forloop.counter}}{{'event.slug'}}" class="doublehouse eventdoublehouse">
+          <div class="doubleout edit togevent"
+            data-name={{event.slug}}
+          >
+            <div class="doubletext approvetext fullfill"><div class="center">Edit</div></div>
+            <div class="pencilbox cliphouse"></div>
+          </div>
+          <div class="fullfill"><div class="center">{{event.name}}</div></div>
+          <div class="doubleout decline pullinfo" data-text="Are-you-sure-you-want-to-delte-{{event.name}}?" data-whattodowith="{{forloop.counter}}{{'event.slug'}}" data-whattodo="delete" data-club="{{ event.slug }}" data-type="deleteevent" data-name="">
+            <div class="doubletext declinetext fullfill"><div class="center">Delete</div></div>
+            <div class="declinebox cliphouse"></div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+</div>
+
+<div class="neweventformwindow" id="neworgformwindow">
+  <div class="neweventhouse">
+    <div class="topbar">
+      <div class="x togneworg"><div class="xclip"></div></div>
+    </div>
+    <form id="neworgform" class="orgform neweventform" enctype="multipart/form-data" action="{% url 'neworg' %}" method="post">
+      {% csrf_token %}
+      <input class="eventinput orgrequired" type="text" name="name" value="" placeholder="Name of Organization">
+      <input class="eventinput" type="text" name="description" value="" placeholder="Description of your Organization">
+      <div class="eventinput inputhouse">
+        <div class="fullfill"><label class="center" for="pic">Display image</label></div>
+        <div class="fullfill"><input class="center" type="file" name="pic" value=""></div>
+      </div>
+      <input class="eventinput" type="text" name="link" value="" placeholder="Link to Organizations Website ( optional )">
+      <input class="eventinput" type="text" name="linkto" value="" placeholder="Where does the link Lead? ( optional )">
+      <div class="eventinput inputhouse">
+        <div class="fullfill"><div class="center">Are you the President?</div></div>
+        <div class="fullfill"><input class="center" type="radio" id="yes" name="president" value="yes" checked="checked"></div>
+        <div class="fullfill"><label class="center" for="yes">yes</label><br></div>
+        <div class="fullfill"><input class="center" type="radio" id="no" name="president" value="no"></div>
+        <div class="fullfill"><label class="center" for="css">no</label><br></div>
+      </div>
+      <div class="eventinput">
+        <button id="submitorg" class="eventbutton" type="submit" name="button">
+          <div class="center">Submit</div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="pushwindow" class="neweventformwindow">
+  <div class="pullbody">
+    <div class="center whiteback"><div id="pulltext" class="center"></div></div>
+    <div class="pullbuttonhouse">
+      <div class="pullbuttonhousemini center">
+        <div id="confirmpush" class="doubleout approve">
+          <div class="doubletext approvetext fullfill"><div class="center">Confirm</div></div>
+          <div class="approvebox cliphouse"></div>
+        </div>
+      </div>
+
+      <div class="pullbuttonhousemini center">
+        <div id="cancelpush" class="doubleout decline">
+          <div class="doubletext declinetext fullfill"><div class="center">Cancel</div></div>
+          <div class="declinebox cliphouse"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% include "orange/new_event.html" with orgs=user.org_admin.all redirect=from %}
+
+{{ orgdic|json_script:"orgdic" }}
+{{ eventdic|json_script:"eventdic" }}
+<script type="text/javascript" src="{% static 'orange/js/profile.js' %}"></script>
+
+{% else %}
+  You have to be signed in to view this page
+{% endif %}
+
+{% endblock %}

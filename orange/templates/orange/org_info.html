@@ -1,0 +1,56 @@
+{% extends 'orange/nav.html' %}
+{% load static %}
+
+{% block pregroup %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+    <link rel="stylesheet" href="{% static 'orange/css/event_info.css' %}">
+
+
+  <div class="event">
+    <div class="almostfullfill bigtext"><div class="center">{{org.name}}</div></div>
+    <img class="eventimagehouse"
+    style="background-image:url('{{ STATIC_PREFIX }}{{org.mainpic}}')"
+    width="{{ org.mainpic.width }}"
+    height="{{ org.mainpic.height }}"
+    ></img>
+    <div class="almostfullfill mediumtext"><div class="center">{{org.description}}</div></div>
+    <div class="seperator"></div>
+    <div class="almostfullfill smalltext"><div class="center">{{org.price}}</div></div>
+    {% if org.link_to_external_site %}
+      <a href="{{org.link_to_external_site}}" class="almostfullfill button smalltext"><div class="center">{{org.link_button_text}}</div></a>
+    {% endif %}
+
+    <div class="letusknowhouse">
+      <div class="letusknowbuttonhouse">
+
+        <div class="almostfullfill">
+          <div id="attendtext" class="center">
+            {% if user in org.members.all %}
+                Your a Member of {{org.name}}
+              {% else %}
+                Do you want to join {{org.name}}?
+            {% endif %}
+          </div>
+        </div>
+        {% if user not in org.members.all %}
+          <div data-type="joinclub" data-club="{{org.slug}}" id="joinevent" class="batterysize">
+            <div class="batterybutton deletefoodbutton batterytopcolor">
+              <div class="fullfill batterytopcolor">
+                <div class="clipstyle batteryclip batterybodycolor"></div>
+              </div>
+              <div class="fullfill batterybodyclip batterybodycolor">
+                <div id="batterytextoption" class="center batterytext">
+                      Join Event!
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+
+  {% endblock %}

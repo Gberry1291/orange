@@ -1,0 +1,389 @@
+from django.shortcuts import render
+from django.views.generic import TemplateView
+from orange.models import Event,Day,Organization
+from accounts.models import Account
+from django.contrib.auth import get_user_model, authenticate, login
+User= get_user_model()
+from django.shortcuts import get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
+import math
+import json
+from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
+from django.core import serializers
+from datetime import timedelta
+from django.utils import timezone
+
+# Create your views here.
+class Homepage(TemplateView):
+    template_name= 'orange/home.html'
+    def get(self, request):
+
+        # days= Day.objects.all()
+        specific_date = timezone.now()
+        days = Day.objects.filter(date__gte=specific_date)[:7]
+        #
+        # days=Day.objects.filter(date__range=["2011-01-01", "2011-01-31"])
+
+        args = {"daylist":days}
+        return render(request,self.template_name,args)
+
+class ThanksPage(TemplateView):
+    template_name= 'orange/thanks.html'
+
+    def get(self,request):
+        try:
+            args={"url":request.headers["Referer"]}
+        except Exception as e:
+            args={"url":"byefriend"}
+
+
+        return render(request,self.template_name,args)
+
+class Welcomepage(TemplateView):
+    template_name= 'orange/welcome.html'
+    def get(self, request):
+
+
+        args = {"from":"calander"}
+        return render(request,self.template_name,args)
+
+class Signin(TemplateView):
+
+    def post(self,request):
+
+        nameinput=request.POST.get('username')
+        passinput=request.POST.get('password')
+        thetype=request.POST.get('sub')
+        next = request.POST.get('next', '/')
+
+
+        searchtext="login sucessful"
+        if thetype=="login":
+            user = authenticate(request, email=nameinput.lower(), password=passinput)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(next)
+            else:
+                return HttpResponseRedirect(next)
+                searchtext="Wrong Password for "+nameinput
+
+        if thetype=="signup":
+            username2=nameinput
+            password=passinput
+            try:
+                User.objects.create_user(username=username2.split("@")[0],email=username2.lower(),password=password)
+                logyouin = authenticate(request, email=username2.lower(), password=password)
+                login(request, logyouin)
+                return HttpResponseRedirect("welcome")
+            except Exception as e:
+                searchtext="A User with the Email adress "+username2.lower()+" is already in use."
+
+
+        response=HttpResponse(searchtext)
+        return response
+
+class EventInfo(TemplateView):
+    template_name = 'orange/event_info.html'
+
+    def get(self, request, slug):
+        event= get_object_or_404(Event,slug=self.kwargs.get('slug'))
+
+        args = {'event':event}
+        return render(request,self.template_name,args)
+
+class OrganizationInfo(TemplateView):
+    template_name = 'orange/org_info.html'
+
+    def get(self, request, slug):
+        org= get_object_or_404(Organization,slug=self.kwargs.get('slug'))
+
+        args = {'org':org}
+        return render(request,self.template_name,args)
+
+class Calander(TemplateView):
+    template_name = 'orange/calander.html'
+
+    def get(self, request):
+
+        daylist= Day.objects.all()
+        daydic={}
+        for day in daylist:
+            endtime = str(day.date.day)+"-"+str(day.date.month)+"-"+str(day.date.year)
+            daydic[endtime]={"date":endtime,"times":day.times,"closed":day.closed,"events":{}}
+            for event in day.events.all():
+                daydic[endtime]["events"][event.name]=[event.name,event.slug]
+        theam=range(1,13)
+        thepm=range(13,25)
+
+        args = {"daylist":daydic,"theam":theam,"thepm":thepm,"from":"calander"}
+        return render(request,self.template_name,args)
+
+class NewEvent(TemplateView):
+    template_name = 'orange/calander.html'
+    def post(self,request):
+        nameinput=request.POST.get('name')
+        descriptioninput=request.POST.get('description')
+        descriptionshort=request.POST.get('descriptionshort')
+        additionalinfo=request.POST.get('additionalinfo')
+        org=request.POST.get('orgselect')
+        picinput=request.FILES.get('pic')
+        priceinput=request.POST.get('price')
+        link=request.POST.get('link')
+        linkto=request.POST.get('linkto')
+        thefrom=request.POST.get('from')
+
+        try:
+            chosen_event=Event.objects.get(name=nameinput)
+            chosen_event.name = nameinput
+            chosen_event.description=descriptioninput
+            chosen_event.description_short=descriptionshort
+            chosen_event.additional_info=additionalinfo
+            if picinput:
+                chosen_event.mainpic=picinput
+            if org!="none":
+                orgtoadd= get_object_or_404(Organization,name=org)
+                chosen_event.org=orgtoadd
+            chosen_event.price=priceinput
+            chosen_event.link_to_external_site=link
+            chosen_event.link_button_text=linkto
+
+            chosen_event.save()
+        except ObjectDoesNotExist:
+            newthing=Event(
+                name = nameinput,
+                description=descriptioninput,
+                description_short=descriptionshort,
+                additional_info=additionalinfo,
+                mainpic=picinput,
+                price=priceinput,
+                link_to_external_site=link,
+                link_button_text=linkto
+            )
+            if request.user:
+                newthing.user=request.user
+            if org!="none":
+                orgtoadd= get_object_or_404(Organization,name=org)
+                newthing.org=orgtoadd
+            newthing.save()
+
+        return HttpResponseRedirect(thefrom)
+
+class SaveDay(TemplateView):
+    template_name = 'orange/calander.html'
+    def post(self,request):
+
+        decodedword=json.loads(request.body.decode('ascii'))
+        dateoption=decodedword["date"]
+        eventoption=decodedword["event"]
+        times=decodedword["times"]
+
+        try:
+            chosen_day=Day.objects.get(date=dateoption)
+            event=Event.objects.get(name=eventoption)
+            chosen_day.events.add(event)
+            for hour in times:
+                chosen_day.times[hour]=eventoption
+            chosen_day.save()
+        except ObjectDoesNotExist:
+            chosen_day=Day(date=dateoption)
+            chosen_day.save()
+            event=Event.objects.get(name=eventoption)
+            chosen_day.events.add(event)
+            for hour in times:
+                chosen_day.times[hour]=eventoption
+            chosen_day.save()
+
+        daylist= Day.objects.all()
+        daydic={}
+        for day in daylist:
+            endtime = str(day.date.day)+"-"+str(day.date.month)+"-"+str(day.date.year)
+            daydic[endtime]={"date":endtime,"times":day.times,"closed":day.closed,"events":[]}
+            for event in day.events.all():
+                daydic[endtime]["events"].append(event.name)
+
+        response=JsonResponse(daydic)
+
+        return response
+
+class Profile(TemplateView):
+    template_name = 'orange/profile.html'
+
+    def get(self, request):
+
+        eventdic={}
+        orgdic={
+            "orgs":[],
+            "myorgs":[],
+            "myadmins":[],
+            "mypresidents":[]
+        }
+        if request.user.is_authenticated:
+
+            orglist= Organization.objects.all()
+
+            for org in orglist:
+                orgdic["orgs"].append(org.name)
+
+                if request.user in org.members.all():
+                    orgdic["myorgs"].append({"name":org.name,"slug":org.slug})
+
+                if request.user in org.admins.all():
+                    admindic={"name":org.name,"slug":org.slug,"requests":[]}
+                    for guy in org.member_requests.all():
+                        admindic["requests"].append(guy.email)
+                    orgdic["myadmins"].append(admindic)
+
+                    for event in org.event_set.all():
+                        if event.user != request.user:
+                            eventdic[event.slug]={
+                                "name":event.name,
+                                "slug":event.slug,
+                                "description":event.description,
+                                "description_short":event.description_short,
+                                "additional_info":event.additional_info,
+                                "price":event.price,
+                                "link_to_external_site":event.link_to_external_site,
+                                "link_button_text":event.link_button_text
+                            }
+
+
+                if request.user == org.president:
+                    presdic={
+                    "name":org.name,
+                    "slug":org.slug,
+                    "admins":[],
+                    "normies":[]
+                    }
+                    for bigguy in org.members.all():
+                        if bigguy in org.admins.all():
+                            if bigguy != request.user:
+                                presdic["admins"].append(bigguy.email)
+                        else:
+                            presdic["normies"].append(bigguy.email)
+                    orgdic["mypresidents"].append(presdic)
+
+
+
+            eventlist =request.user.eventowner.all()
+            for event in eventlist:
+                eventdic[event.slug]={
+                    "name":event.name,
+                    "slug":event.slug,
+                    "description":event.description,
+                    "description_short":event.description_short,
+                    "additional_info":event.additional_info,
+                    "price":event.price,
+                    "link_to_external_site":event.link_to_external_site,
+                    "link_button_text":event.link_button_text
+                }
+
+
+        args = {"orgdic":orgdic,"eventdic":eventdic,"from":"profile"}
+        return render(request,self.template_name,args)
+
+class NewOrg(TemplateView):
+    template_name = 'orange/profile.html'
+    def post(self,request):
+        nameinput=request.POST.get('name')
+        descriptioninput=request.POST.get('description')
+        picinput=request.FILES.get('pic')
+        link=request.POST.get('link')
+        linkto=request.POST.get('linkto')
+        president=request.POST.get('president')
+
+        newthing=Organization(
+            name = nameinput,
+            description=descriptioninput,
+            mainpic=picinput,
+            link_to_external_site=link,
+            link_button_text=linkto
+        )
+        newthing.save()
+
+        if president=="yes":
+            newthing.president=request.user
+        newthing.members.add(request.user)
+        newthing.admins.add(request.user)
+        newthing.save()
+
+
+        return HttpResponseRedirect("/orange/profile")
+
+class SendInfo(TemplateView):
+    template_name = 'orange/profile.html'
+    def post(self,request):
+
+        decodedword=json.loads(request.body.decode('ascii'))
+        typeoption=decodedword["type"]
+        nameoption=decodedword["name"]
+        person=decodedword["person"]
+
+        returninfo={
+            "message":"just checking",
+            "check":""
+        }
+
+        if typeoption=="member_request":
+            club=Organization.objects.get(name=nameoption)
+            club.member_requests.add(request.user)
+            returninfo["message"]="your request to join has been sent. no further action needed"
+        if typeoption=="approvemember":
+            club=Organization.objects.get(slug=nameoption)
+            newbie=User.objects.get(email=person)
+            club.members.add(newbie)
+            club.member_requests.remove(newbie)
+            returninfo["message"]=person+" has been add to"+club.name
+        if typeoption=="declinemember":
+            club=Organization.objects.get(slug=nameoption)
+            newbie=User.objects.get(email=person)
+            club.member_requests.remove(newbie)
+            returninfo["message"]=person+" wont be bothering you anymore"
+        if typeoption=="promotemember":
+            club=Organization.objects.get(slug=nameoption)
+            newbie=User.objects.get(email=person)
+            club.admins.add(newbie)
+            returninfo["message"]=person+" was promoted to administrator"
+        if typeoption=="demotemember":
+            club=Organization.objects.get(slug=nameoption)
+            newbie=User.objects.get(email=person)
+            club.admins.remove(newbie)
+            returninfo["message"]=person+" was demoted"
+        if typeoption=="kickmember":
+            club=Organization.objects.get(slug=nameoption)
+            newbie=User.objects.get(email=person)
+            club.members.remove(newbie)
+            returninfo["message"]=person+" was removed from "+club.name
+        if typeoption=="leaveclub":
+            club=Organization.objects.get(slug=nameoption)
+            club.members.remove(request.user)
+            club.admins.remove(request.user)
+        if typeoption=="deleteevent":
+            event=Event.objects.get(slug=nameoption)
+            event.delete()
+
+        if typeoption=="attendevent":
+            event=Event.objects.get(slug=nameoption)
+            event.tendies.add(request.user)
+            returninfo["message"]="you were added to attendie list!"
+            returninfo["check"]="success"
+
+        if typeoption=="dontattendevent":
+            event=Event.objects.get(slug=nameoption)
+            event.tendies.remove(request.user)
+            returninfo["message"]="Sorry you couldnt make it!"
+            returninfo["check"]="success"
+
+
+
+        response=JsonResponse(returninfo)
+        return response
+
+class UserPage(TemplateView):
+    template_name = 'orange/userpage.html'
+
+    def get(self,request,slug):
+
+        theuser=User.objects.get(email=self.kwargs.get("slug"))
+
+        args={"theuser":theuser}
+        return render(request,self.template_name,args)

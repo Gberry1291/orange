@@ -1,0 +1,94 @@
+{% extends 'orange/nav.html' %}
+{% load static %}
+
+{% block pregroup %}
+
+<link rel="stylesheet" href="{% static 'orange/css/welcome.css' %}">
+
+<div class="page">
+
+<div class="titlehouse">
+  <div class="center">
+    Welcome
+  </div>
+</div>
+<div class="subtexthouse gen">
+  <div class="center">
+    Thank you for Participating in the beta testing of this website.
+  </div>
+</div>
+<div class="subtexthouse gen">
+  <div class="center">
+    It would be a huge help if you could quickly read the user information below.
+  </div>
+</div>
+<div class="infohouse gen">
+  <div class="insruction">
+    The Calander Icon located on the navigation bar will take you to the interactive calander, there you can see what
+    days/times are currently available, as well as upcoming events. If you are signed-up ( you are now ),
+    you can simply click the day, then click the hours you want to reserve, and save.
+  </div>
+  <div class="demohouse">
+    <a  href="{% url 'calander' %}" id="calander" class="testcalhouse" >
+      <div class="fullfill month"><div id="monthnav" class="center">Month</div></div>
+      <div class="fullfill navday"><div id="daynav" class="center">28</div></div>
+      <div class="fullfill weekday"><div id="daydaynav" class="center">friday</div></div>
+    </a>
+  </div>
+</div>
+
+<div class="evenhouse gen">
+  <div class="insruction">
+    of course, in order to reserve your event, you have to create one first. ( you can do it here too, the button works )
+  </div>
+  <div class="demohouse">
+    <div class="removebutton deletefoodbutton togeventwindow togevent">
+      <div class="fullfill trashhouse">
+        <div class="traschcan"></div>
+      </div>
+      <div class="fullfill removehouse">
+        <div class="center removetext">Add Event</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="infohouse gen">
+  <div class="insruction">
+    You may have noticed on the event form theres a "Host Organization" option. Through the profile tab above, you
+    can create an organization. For example I posted a few events already on behalf of MCT. You can join other peoples clubs
+    and approve of new members that want to join yours. you can also make them "admins", and post events that were created
+    with your club.
+  </div>
+  <div class="demohouse">
+      <a href="{% url 'profile' %}" id="settings" class="navitemsmall profilebackmini" ><div class="center profileclip"></div></a>
+  </div>
+</div>
+
+<div class="evenhouse gen">
+  <div class="insruction">
+    The last thing ( and most important ) is searching for bugs. did you find something thats not working right?
+    or did the website crash? when you get an error please take a screen-shot and send it to me! these are very very
+    helpful in making this app better!
+  </div>
+  <div class="demohouse errorimage">
+  </div>
+</div>
+
+<div class="fullhouse gen">
+  <div class="center">
+    Again, thanks for your help, hope to see you again soon!
+  </div>
+</div>
+<div class="fullhouse gen">
+  <div class="center">
+    -Gary
+  </div>
+</div>
+
+
+</div>
+
+{% include "orange/new_event.html" with orgs=user.org_admin.all redirect=from %}
+
+{% endblock %}

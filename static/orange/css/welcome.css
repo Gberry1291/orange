@@ -1,0 +1,95 @@
+.page{
+  width:100%;
+  overflow:auto;
+  background-color: white;
+}
+.gen{
+    padding: 5%;
+    width:80%;
+    margin: auto;
+    overflow:auto;
+}
+.titlehouse{
+  display: flex;
+  font-size: 2em;
+}
+.subtexthouse{
+  display: flex;
+  font-size: 1.5em;
+}
+.infohouse{
+  display: grid;
+  grid-template-columns: 80% 20%;
+}
+.evenhouse{
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.fullhouse{
+  display: flex;
+  width:80%;
+}
+.insruction{
+  width:100%;
+  overflow: auto;
+  font-size: 1.1em;
+}
+.demohouse{
+  height: 100%;
+  width:100%;
+  display: flex;
+}
+.testcalhouse{
+  width:90%;
+  margin:auto;
+  aspect-ratio: 1/1;
+  background-color: white;
+  display: grid;
+  grid-template-rows: 30% 45% 25%;
+  border:2px solid #EDEDED;
+  border-radius: 10px;
+}
+.removebutton{
+  box-sizing: border-box;
+  margin:auto;
+  height: 7vh;
+  width:86%;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  overflow: hidden;
+  background-color:#2E2E2E;
+}
+.trashhouse{
+  background-color: #2E2E2E;
+}
+.traschcan{
+  height:45%;
+  margin:auto;
+  aspect-ratio:1/1;
+  background-color: #12B7DE;
+  clip-path:polygon(0% 34%,34% 34%,34% 0%,68% 0%,68% 34%,100% 34%,100% 68%,
+    68% 68%,68% 100%,34% 100%,34% 68%,0% 68%)
+}
+.removehouse{
+  background-color:#12B7DE;
+  clip-path:polygon(0% 0%,100% 0%,100% 100%,0% 100%,
+      0% 60%,5% 50%,0% 40%,0% 0%)
+}
+.removetext{
+  color:#2E2E2E;
+  font-size: .9em;
+  font-family: 'Courier New', monospace;
+}
+.profilebackmini{
+  background-color: white;
+  border-radius: 30px;
+  width: 100%;
+  margin:auto;
+}
+.errorimage{
+  background-image: url("propics/error.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}

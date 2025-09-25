@@ -1,0 +1,439 @@
+:root {
+  --main: #FFFFFF;
+  --secondary: #F86697;
+  --pair: #000000;
+  --navback:#FF84C3;
+  --textcolor2:red;
+  --buttonborder:orange;
+  --buttonbackcolor:green;
+  --buttontextcolor:black;
+}
+@font-face {
+   font-family: funnel;
+  src: url(fonts/funneldisplay.ttf);
+}
+@font-face {
+   font-family: grass;
+  src: url(fonts/grass.ttf);
+}
+body{
+  position: absolute;
+  margin: 0%;
+  box-sizing: border-box;
+  padding:0px;
+  left:0px;
+  top:0px;
+  font-size: 100%;
+  height: 100%;
+  width:100%;
+  font-family: funnel;
+  background-image: url("propics/natureback1.png");
+  background-size: auto;
+  background-repeat:repeat;
+}
+@media screen and (min-width: 900px) {
+  body {
+    --widtha:calc(100vw - 1000px);
+    margin-left: calc(var(--widtha) / 2);
+    max-width: 1000px;
+  }
+}
+a{
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:link {
+  text-decoration: none;
+}
+.maintext{
+  color:var(--main)
+}
+.secondarytext{
+  color:var(--secondary)
+}
+.bolder{
+  font-weight: bold;
+}
+.white{
+  color:white;
+}
+.fullfill{
+  display: flex;
+  height:100%;
+  width:100%;
+  min-height: 0;
+}
+.center{
+  margin:auto;
+  text-align: center;
+}
+.navbar{
+  position: relative;
+  height:7%;
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3em;
+  padding: 1%;
+  box-sizing: border-box;
+  background-color: white;
+}
+.left{
+  display: flex;
+  align-content: flex-start;
+  width:100%;
+}
+.right{
+  display: flex;
+  align-content: flex-end;
+  width:100%;
+}
+.navitem{
+  display: flex;
+  height:100%;
+  border-radius:5px;
+}
+.orangehouse{
+  position: relative;
+  top:15%;
+  height:70%;
+  aspect-ratio: 1/1;
+  display: grid;
+}
+.orangetext{
+  font-size: .8em;
+  color: #FF7F27;
+}
+.orangeclip{
+  clip-path:polygon(2.6% 60.6%,3.4% 54.4%,5.6% 48.0%,9.6% 43.0%,13.0% 38.2%,17.8% 33.8%,23.0% 30.4%,25.8% 29.0%,31.4% 27.8%,33.6% 27.8%,38.4% 29.4%,42.4% 27.0%,45.8% 24.6%,53.0% 24.6%,59.8% 25.0%,
+    65.6% 26.2%,73.4% 28.0%,78.4% 31.0%,84.2% 34.2%,88.0% 37.4%,91.8% 41.0%,95.0% 46.4%,97.4% 49.8%,98.4% 54.2%,99.4% 57.6%,99.0% 66.6%,97.6% 72.2%,96.2% 75.4%,93.0% 80.6%,90.2% 84.2%,87.8% 86.6%,
+    82.6% 90.2%,80.6% 92.8%,74.6% 95.0%,70.4% 96.8%,64.2% 97.8%,57.4% 99.2%,44.8% 99.0%,35.4% 97.6%,33.4% 97.6%,28.0% 95.2%,23.0% 93.0%,17.0% 89.4%,12.8% 85.8%,8.6% 80.2%,5.4% 75.2%,4.0% 72.6%,
+    3.2% 69.0%,3.0% 66.2%,
+    2.6% 60.6%,
+    17.6% 62.2%,18.2% 66.4%,19.8% 71.8%,22.2% 74.6%,24.6% 77.0%,27.8% 80.8%,32.6% 83.4%,37.4% 85.4%,40.0% 86.2%,46.4% 87.0%,53.6% 87.0%,60.6% 86.4%,66.2% 84.6%,70.6% 82.2%,73.6% 79.2%,76.6% 76.6%,
+    79.0% 73.6%,81.4% 69.0%,82.6% 66.2%,83.0% 59.2%,81.4% 53.8%,79.0% 50.2%,75.4% 45.4%,70.6% 42.2%,66.6% 39.8%,63.0% 37.0%,56.0% 36.8%,52.2% 36.8%,47.0% 37.4%,39.0% 38.2%,32.6% 40.8%,27.8% 43.8%,
+    24.0% 47.0%,21.4% 49.8%,19.0% 55.2%,17.0% 59.0%,17.6% 62.2%,
+    2.6% 60.6%);
+    grid-column: 1;
+    grid-row: 1;
+    background-color: #FF7F27;
+}
+.leafclip{
+  clip-path:polygon(
+    3.8% 10.2%,3.4% 8.6%,1.6% 6.2%,1.8% 3.8%,2.6% 2.2%,4.0% 1.4%,8.8% 1.4%,15.4% 1.8%,25.6% 3.4%,28.2% 6.2%,31.0% 8.6%,32.8% 14.4%,32.8% 22.4%,28.0% 18.2%,24.2% 15.0%,
+    24.8% 11.8%,24.2% 9.4%,22.2% 10.2%,23.4% 11.8%,23.0% 14.4%,19.4% 11.2%,16.8% 8.6%,15.0% 7.2%,11.8% 6.2%,9.4% 5.4%,7.0% 5.8%,8.0% 7.0%,12.0% 8.2%,14.2% 9.8%,9.4% 12.2%,
+    10.2% 13.0%,12.6% 13.0%,15.8% 12.0%,19.0% 15.0%,24.2% 19.0%,23.8% 18.4%,30.6% 24.6%,6.2% 13.6%
+    );
+  grid-column: 1;
+  grid-row: 1;
+  background-color: #22B14C;
+}
+.reversenavitem{
+  border-radius: 30px;
+  height:80%;
+  padding-left: 8%;
+  padding-right: 8%;
+  background-color: #363636;
+  margin: auto;
+}
+.navitemsmall{
+  display: flex;
+  aspect-ratio:1/1;
+}
+.calhouse{
+  height:90%;
+  margin:auto;
+  aspect-ratio: 1/1;
+  background-color: white;
+  display: grid;
+  grid-template-rows: 30% 45% 25%;
+  border:2px solid #EDEDED;
+  border-radius: 10px;
+}
+.month{
+  background-color: #1C913E;
+  color:white;
+  font-size: .5em;
+}
+.navday{
+  color:black;
+  font-size:.7em;
+}
+.weekday{
+  color:#1C913E;
+  font-size: .4em;
+}
+.form{
+  overflow: hidden;
+}
+#logout{
+  background-color: inherit;
+  border:none;
+  color:var(--main);
+}
+.profileback{
+  background-color: white;
+  border-radius: 30px;
+  height: 80%;
+  margin:auto;
+}
+.profileclip{
+  background-color: black;
+  height:50%;
+  width:50%;
+  clip-path:polygon(27.4% 24.8%,27.4% 20.8%,28.0% 17.4%,30.4% 12.6%,32.8% 9.6%,35.8% 6.6%,39.2% 4.6%,41.8% 3.4%,44.8% 3.0%,48.0% 2.2%,51.0% 2.2%,55.2% 3.0%,57.6% 3.8%,61.0% 4.6%,63.8% 6.4%,
+    66.2% 8.2%,67.8% 11.0%,69.4% 13.0%,71.2% 16.6%,71.8% 18.4%,72.2% 21.4%,72.8% 24.6%,72.2% 27.8%,71.4% 32.6%,70.2% 35.8%,68.2% 37.4%,66.6% 39.8%,64.0% 42.4%,60.6% 44.2%,57.6% 45.6%,
+    53.4% 47.0%,45.4% 47.0%,40.2% 45.4%,37.0% 42.4%,33.0% 39.8%,30.4% 36.8%,28.8% 33.8%,27.8% 31.4%,27.4% 27.4%,
+    27.4% 24.8%,
+    100% 100%,99.0% 95.2%,98.2% 90.4%,96.6% 84.2%,94.2% 79.2%,91.4% 75.2%,88.6% 69.8%,84.8% 66.2%,81.4% 63.0%,77.8% 59.8%,73.8% 57.6%,67.8% 55.0%,63.8% 53.0%,59.4% 52.0%,
+    53.6% 51.8%,44.2% 51.8%,36.6% 53.0%,32.6% 54.2%,27.2% 56.6%,24.0% 59.2%,18.4% 62.4%,16.2% 64.8%,12.2% 67.8%,9.8% 72.0%,6.6% 77.0%,5.0% 79.8%,
+    3.4% 83.0%,2.2% 88.2%,1.0% 93.4%,0% 100%,100% 100%,
+    27.4% 24.8%)
+}
+.calanderclip{
+  background-color: black;
+  height:50%;
+  width:50%;
+}
+.menuclip{
+  background-color: black;
+  height:80%;
+  width:80%;
+  clip-path:polygon(10.6% 31.8%,11.0% 21.0%,91.2% 21.4%,91.2% 31.2%,10.6% 31.8%,
+      10.2% 44.8%,11.0% 55.2%,91.0% 55.2%,91.2% 45.4%,10.2% 44.8%,
+      10.6% 31.8%,
+      11.8% 68.6%,91.8% 68.2%,91.8% 78.6%,10.6% 79.0%,11.8% 68.6%,
+      10.6% 31.8%)
+}
+
+#signslide{
+  height: 100%;
+  width:0%;
+  left:100%;
+  z-index: 16;
+}
+.signin{
+  position: absolute;
+  top:0%;
+  left:0%;
+  height:100%;
+  width:100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: white;
+}
+#signin{
+  position: absolute;
+  left:0%;
+  height:90%;
+  top:10%;
+  width:100%;
+  background-color: white;
+  z-index: 15;
+  border-top:3px solid #E0E0E0;
+  overflow: hidden;
+}
+.signintop{
+  position: absolute;
+  top:0%;
+  left:0%;
+  height:8%;
+  width:100%;
+  background-color: white;
+}
+.x{
+  height: 100%;
+  aspect-ratio:1 / 1;
+  background-color: #FF6B6B;
+}
+.xclip{
+  position: relative;
+  height:90%;
+  width:90%;
+  top: 5%;
+  left:5%;
+  background-color: black;
+  clip-path:polygon(32.4% 66.2%,48.2% 49.8%,32.6% 33.8%,34.0% 32.2%,50.2% 48.0%,65.6% 32.6%,68.0% 34.0%,52.0% 50.2%,
+    68.0% 66.2%,66.4% 67.2%,50.2% 52.2%,34.2% 67.8%);
+}
+.userdiv{
+  position: absolute;
+  left:5%;
+  width:90%;
+  height:10%;
+  border:3px solid #E0E0E0;
+  border-radius: 10px;
+  background-color: white;
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+}
+.userpic{
+  width:50%;
+  margin:auto;
+  clip-path:polygon(27.4% 24.8%,27.4% 20.8%,28.0% 17.4%,30.4% 12.6%,32.8% 9.6%,35.8% 6.6%,39.2% 4.6%,41.8% 3.4%,44.8% 3.0%,48.0% 2.2%,51.0% 2.2%,55.2% 3.0%,57.6% 3.8%,61.0% 4.6%,63.8% 6.4%,
+    66.2% 8.2%,67.8% 11.0%,69.4% 13.0%,71.2% 16.6%,71.8% 18.4%,72.2% 21.4%,72.8% 24.6%,72.2% 27.8%,71.4% 32.6%,70.2% 35.8%,68.2% 37.4%,66.6% 39.8%,64.0% 42.4%,60.6% 44.2%,57.6% 45.6%,
+    53.4% 47.0%,45.4% 47.0%,40.2% 45.4%,37.0% 42.4%,33.0% 39.8%,30.4% 36.8%,28.8% 33.8%,27.8% 31.4%,27.4% 27.4%,
+    27.4% 24.8%,
+    100% 100%,99.0% 95.2%,98.2% 90.4%,96.6% 84.2%,94.2% 79.2%,91.4% 75.2%,88.6% 69.8%,84.8% 66.2%,81.4% 63.0%,77.8% 59.8%,73.8% 57.6%,67.8% 55.0%,63.8% 53.0%,59.4% 52.0%,
+    53.6% 51.8%,44.2% 51.8%,36.6% 53.0%,32.6% 54.2%,27.2% 56.6%,24.0% 59.2%,18.4% 62.4%,16.2% 64.8%,12.2% 67.8%,9.8% 72.0%,6.6% 77.0%,5.0% 79.8%,
+    3.4% 83.0%,2.2% 88.2%,1.0% 93.4%,0% 100%,100% 100%,
+    27.4% 24.8%);
+  aspect-ratio:1/1;
+  background-color: black;
+}
+.lockclip{
+  width:50%;
+  margin:auto;
+  clip-path:polygon(
+    21.6% 50.6%,79.8% 50.4%,79.8% 86.6%,79.0% 88.6%,77.4% 89.8%,76.0% 90.6%,27.4% 91.2%,24.8% 91.0%,
+    22.6% 88.6%,21.0% 86.2%,
+    21.6% 50.6%,
+    24.0% 46.2%,31.8% 46.2%,32.8% 28.8%,34.4% 23.2%,39.0% 18.6%,42.6% 17.4%,46.2% 16.2%,48.6% 15.8%,53.4% 15.4%,
+    57.6% 16.8%,61.6% 19.2%,65.6% 21.4%,67.0% 24.6%,68.6% 26.6%,68.8% 31.8%,68.6% 47.0%,76.2% 47.0%,76.6% 26.4%,
+    75.0% 21.4%,71.4% 16.8%,69.0% 14.2%,65.6% 12.0%,62.4% 10.2%,59.2% 8.6%,54.6% 8.0%,49.6% 8.0%,44.8% 8.2%,
+    40.8% 9.4%,36.0% 11.4%,32.0% 14.2%,30.2% 16.8%,27.8% 18.2%,27.0% 20.2%,25.8% 23.8%,24.6% 27.4%,24.0% 46.2%,
+    21.6% 50.6%);
+    aspect-ratio:1/1;
+    background-color: black;
+}
+.removeall{
+  margin:0%;
+  padding:0%;
+  border:none;
+}
+.userinput{
+  position: absolute;
+  top:1%;
+  width:70%;
+  height:96%;
+  border-radius: 10px;
+  border:none;
+  border-left:3px solid #E0E0E0;
+  font-size: 3vw;
+}
+.userforgot{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position: absolute;
+  top:0px;
+  right:0px;
+  height:100%;
+  aspect-ratio:1/1;
+  text-decoration: underline;
+  font-weight: bold;
+  color:#040073;
+  font-size: .6em;
+}
+#signinbutton{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position: absolute;
+  left:5%;
+  top:26%;
+  font-size: 3vw;
+  font-weight: bold;
+  height:10%;
+  width:90%;
+  border:3px solid #040073;
+  color:#040073;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+  transition: color 1s,background-color 1s;
+}
+#signinbutton:hover{
+  color:white;
+  background-color:#040073;
+}
+#signinbutton2{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position: absolute;
+  left:5%;
+  top:38%;
+  font-size: 3vw;
+  font-weight: bold;
+  height:10%;
+  width:90%;
+  border:3px solid #040073;
+  color:#040073;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+  transition: color 1s,background-color 1s;
+}
+#signinbutton2:hover{
+  color:white;
+  background-color:#040073;
+}
+#signupbutton{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position: absolute;
+  left:5%;
+  top:38%;
+  font-size: 3vw;
+  font-weight: bold;
+  height:10%;
+  width:90%;
+  border:3px solid white;
+  color:white;
+  background-color: #040073;
+  border-radius: 10px;
+  text-align: center;
+  transition: color 1s,background-color 1s,border 1s;
+}
+#signupbutton:hover{
+  color:#040073;
+  background-color:white;
+  border:3px solid #040073;
+}
+#userdiv{
+  top:2%;
+}
+#passdiv{
+  top:14%;
+}
+#linediv{
+  position: absolute;
+  top:50%;
+  left:5%;
+  width:90%;
+  background-color:#9E9E9E;
+  height:1px;
+}
+.signbotdiv{
+  position: absolute;
+  left:5%;
+  width:90%;
+  height:10%;
+  font-weight: bold;
+  font-size: 3vw;
+  border-bottom:3px solid #F0F0F0;
+  color:#040073;
+  transition:color 1s,background-color 1s,border 1s;
+  transition-timing-function: linear;
+}
+.signbotdiv:hover{
+  color:#3F48CC;
+  background-color:#F0F0F0;
+  border-left:20px solid #040073;
+}
+#signinbot1{
+  top:52%;
+}
+#signinbot2{
+  top:62%;
+}
+#signinbot3{
+  top:72%;
+}
+#signinbot4{
+  top:82%;
+}

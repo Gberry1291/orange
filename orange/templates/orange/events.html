@@ -1,0 +1,56 @@
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+<link rel="stylesheet" href="{% static 'orange/css/events.css' %}">
+
+
+  <div class="event" data-day="{{elday.date|date:'d'}}" data-month="{{elday.date|date:'M'}}" data-year="{{elday.date|date:'Y'}}">
+    <div class="almostfullfill bigtext"><div class="center">{{event.name}}</div></div>
+    <a href="{% url 'eventinfo' slug=event.slug %}" class="eventimagehouse">
+      <div class="eventimage"
+        style="background-image:url('{{ STATIC_PREFIX }}{{event.mainpic}}')"
+      ></div>
+    </a>
+    <div class="almostfullfill mediumtext"><div class="center">{{event.description_short}}</div></div>
+    <div class="almostfullfill mediumsmalltext"><div class="center">{{event.additional_info}}</div></div>
+    <div class="almostfullfill smalltext">
+      <div class="center time">
+        {{elday.date|date:"D d M Y"}}
+        <br>
+        Start:
+        {% for hour,eve in elday.times.items %}
+          {% ifchanged eve %}
+            {% if eve == event.name %}
+              {{ hour }} Uhr
+            {% endif %}
+          {% endifchanged %}
+        {% endfor %}
+        <br>
+        End:
+        {% for hour,eve in elday.times.items reversed %}
+          {% ifchanged eve %}
+            {% if eve == event.name %}
+              {{ hour }} Uhr
+            {% endif %}
+          {% endifchanged %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="seperator"></div>
+    <div class="almostfullfill smalltext"><div class="center">Price: {{event.price}}</div></div>
+    <div class="seperator"></div>
+
+    {% if event.org %}
+      <div class="almostfullfill hostedby">
+        <div class="center"><span>Hosted By:</span><a href="{% url 'orginfo' slug=event.org.slug %}">{{event.org.name}}</a></div>
+      </div>
+    {% else %}
+      <div class="almostfullfill hostedby">
+        <div class="center"><span>Hosted By:</span><a href="{% url 'user' slug=event.user.email %}">{{event.user.email}}</a></div>
+      </div>
+    {% endif %}
+
+    <a href="{% url 'eventinfo' slug=event.slug %}" class="almostfullfill button smalltext"><div class="center">More Info</div></a>
+    {% if event.link_to_external_site %}
+      <a href="{{event.link_to_external_site}}" class="almostfullfill button smalltext"><div class="center">{{event.link_button_text}}</div></a>
+    {% endif %}
+  </div>

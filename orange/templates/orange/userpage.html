@@ -1,0 +1,44 @@
+{% extends 'orange/nav.html' %}
+{% load static %}
+
+{% block pregroup %}
+<link rel="stylesheet" href="{% static 'orange/css/profile.css' %}">
+
+<div class="page selected">
+  <div class="profile">
+    <div class="pichouse">
+      {% if theuser.display_pic %}
+        <div class="pic" style="background-image:url('{{ STATIC_PREFIX }}{{ theuser.display_pic }}')"></div>
+      {% else %}
+        <div class="pic guest"></div>
+      {% endif %}
+    </div>
+
+    <div class="topinfohouse">
+      <div class="namehouse">
+        <div class="center">{{ theuser.email }}</div>
+      </div>
+
+      <div class="contacthouse">
+        <div class="contact">
+          {{ contact }}
+        </div>
+      </div>
+    </div>
+
+    <div class="orghouse">
+      <div class="orgintro">
+        <div class="center">
+          Organizations
+        </div>
+      </div>
+      {% for thing in theuser.org_member.all %}
+        <div class="orgitem">
+          <div class="center">{{ thing }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

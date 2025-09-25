@@ -1,0 +1,73 @@
+.neweventpage{
+  position: absolute;
+  left:0px;
+  top:0px;
+  height:100%;
+  width:100%;
+  background-color: rgba(23, 23, 23, .7);
+  z-index: 16;
+  display: none;
+}
+.neweventhouse{
+  position: relative;
+  top:5%;
+  height:95%;
+  width:90%;
+  margin:auto;
+}
+.topbar{
+  position: relative;
+  height:7%;
+  width:100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+}
+.neweventform{
+  position: relative;
+  height:90%;
+  width:100%;
+  background-color: white;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+  padding:0%;
+  box-sizing: border-box;
+}
+.starthouse{
+  position: relative;
+  height: 100%;
+  width:90%;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+}
+.eventinput{
+  position:relative;
+  height: 92%;
+  width:90%;
+  border: 2px solid black;
+  box-sizing: border-box;
+  padding:0%;
+  margin:auto;
+}
+.alertinput{
+  border: 2px solid #940000;
+  background-color: #FF7373;
+}
+.eventbutton{
+  height: 92%;
+  width:90%;
+  display: flex;
+  margin:auto;
+}
+input::file-selector-button{
+  box-sizing: border-box;
+  position: relative;
+  top:25%;
+  height:50%;
+  width:50%;
+  border:2px solid black;
+}
+.selected{
+  display: block;
+}
