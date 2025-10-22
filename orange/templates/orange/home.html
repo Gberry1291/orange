@@ -3,71 +3,26 @@
 
 {% block pregroup %}
 
-    <link rel="stylesheet" href="{% static 'orange/css/home.css' %}">
+<link rel="stylesheet" href="{% static 'orange/css/home.css' %}">
 
-<div class="page">
-  <div class="">
-    <div class="center titletext">Upcoming Events</div>
-  </div>
-  <div class="selectdatehouse fullfill">
-    <select id="dayselect" class="fullfilldate" name="">
-      <option value="none">Day</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
-      <option value="13">13</option>
-      <option value="14">14</option>
-      <option value="15">15</option>
-      <option value="16">16</option>
-      <option value="17">17</option>
-      <option value="18">18</option>
-      <option value="19">19</option>
-      <option value="20">20</option>
-      <option value="21">21</option>
-      <option value="22">22</option>
-      <option value="23">23</option>
-      <option value="24">24</option>
-      <option value="25">25</option>
-      <option value="26">26</option>
-      <option value="27">27</option>
-      <option value="28">28</option>
-      <option value="29">29</option>
-      <option value="30">30</option>
-      <option value="31">31</option>
-    </select>
-    <select id="monthselect" class="fullfilldate" name="">
-      <option value="none">Month</option>
-      <option value="Jan">January</option>
-      <option value="Feb">February</option>
-      <option value="Mar">March</option>
-      <option value="Apr">April</option>
-      <option value="May">May</option>
-      <option value="Jun">June</option>
-      <option value="July">July</option>
-      <option value="Aug">August</option>
-      <option value="Sep">September</option>
-      <option value="Oct">October</option>
-      <option value="Nov">November</option>
-      <option value="Dec">December</option>
-    </select>
-    <select id="yearselect" class="fullfilldate" name="">
-      <option value="none">Year</option>
-      <option value="2025">2025</option>
-      <option value="2026">2026</option>
-    </select>
-    <div id="resetdate" class="datebutton">
-      <div class="center magclip"></div>
+  <div class="bodymargin">
+    <div class="titletext limitwidth">
+      {{language.title1}}
+      <br>
+      {{language.title2}}
     </div>
   </div>
+
+  <div class="bodymargin">
+    <div class="minortext paddingbot12">
+      {{language.homedescription}}
+    </div>
+  </div>
+
+  <div class="bodymargin">
+    <div class="programtext">{{language.program}}</div>
+  </div>
+
   <div class="pagecontent">
     {% for day in daylist %}
       {% for newevent in day.events.all %}
@@ -75,10 +30,82 @@
       {% endfor %}
     {% endfor %}
   </div>
-</div>
+
+
+  <div class="bodymargin">
+    <div class="titletext">
+      {{language.where}}
+    </div>
+  </div>
+  <div class="bodymargin">
+    <iframe class="map"
+      loading="lazy"
+      src="https://maps.google.com/maps?q=schadaugarten%20thun&amp;t=m&amp;z=16&amp;output=embed&amp;iwloc=near"
+      title="schadaugarten thun"
+      aria-label="schadaugarten thun">
+    </iframe>
+  </div>
+
+  <div class="bodymargin addresstext">
+    Schadaugärtnerei
+    <br>
+    Seestrasse, 3600 Thun
+  </div>
+
+  <div class="bodymargin">
+    <div class="titletext">
+      {{language.create}}
+    </div>
+  </div>
+  <div class="bodymargin">
+    <div class="minortext formmargin">
+      {{language.getinfo}}
+    </div>
+  </div>
+
+  <form class="bodymargin" method="post" action="{% url 'signin' %}">
+    {% csrf_token %}
+    <input name="username" type="email" class="maininput" value="" placeholder="Email*" required>
+    <input name="password" type="password" class="maininput" type="text" value="" placeholder="Password*" required>
+
+    <div class="minortext formmargin">
+      {{language.assure}}
+    </div>
+
+    <input type="hidden" name="next" value="{{ request.path }}">
+    <button type="submit" name="sub" class="mainsub">
+      <div class="center">
+        {{language.createaccount}}
+      </div>
+    </button>
+  </form>
+
 <!-- <div class="selecterback">
 
 </div> -->
+<footer class="footer">
+<div class="fullfill">
+  <div class="center">
+    Copyright © 2025 Orangerie Thun
+  </div>
+</div>
+<div class="bottomfoot fullfill">
+  <a href="https://www.instagram.com/orangerie_thun/" class="fullfill">
+    <div class="center bottomflex">
+      <div class="instaclip"></div>
+      <span>&nbsp; {{language.follow}}</span>
+    </div>
+  </a>
+  <a href="mailto:info@orangerie-thun.ch" class="fullfill">
+    <div class="center bottomflex">
+      <div class="letterclip"></div>
+      <div class="center">&nbsp; {{language.write}}</div>
+    </div>
+  </a>
+</div>
+
+</footer>
+
 <script type="text/javascript" src="{% static 'orange/js/home.js' %}"></script>
 
   {% endblock %}

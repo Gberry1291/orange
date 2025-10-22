@@ -1,12 +1,7 @@
 :root {
-  --main: #FFFFFF;
-  --secondary: #F86697;
-  --pair: #000000;
-  --navback:#FF84C3;
-  --textcolor2:red;
-  --buttonborder:orange;
-  --buttonbackcolor:green;
-  --buttontextcolor:black;
+  --bodycolor: #C4A4E4;
+  --logocolor: #752EE3;
+  --textcolormain:#FFFFFF;
 }
 @font-face {
    font-family: funnel;
@@ -27,15 +22,14 @@ body{
   height: 100%;
   width:100%;
   font-family: funnel;
-  background-image: url("propics/natureback1.png");
-  background-size: auto;
-  background-repeat:repeat;
+  background-color: var(--bodycolor);
+  color:var(--textcolormain);
 }
 @media screen and (min-width: 900px) {
   body {
-    --widtha:calc(100vw - 1000px);
+    --widtha:calc(100vw - 900px);
     margin-left: calc(var(--widtha) / 2);
-    max-width: 1000px;
+    max-width: 900px;
   }
 }
 a{
@@ -56,9 +50,6 @@ a:link {
 .bolder{
   font-weight: bold;
 }
-.white{
-  color:white;
-}
 .fullfill{
   display: flex;
   height:100%;
@@ -78,7 +69,8 @@ a:link {
   font-size: 1.3em;
   padding: 1%;
   box-sizing: border-box;
-  background-color: white;
+  background-color: var(--bodycolor);
+  color:var(--textcolormain);
 }
 .left{
   display: flex;
@@ -95,6 +87,10 @@ a:link {
   height:100%;
   border-radius:5px;
 }
+.custom-logo{
+  max-width: 129px;
+  width: 129px;
+}
 .orangehouse{
   position: relative;
   top:15%;
@@ -104,7 +100,7 @@ a:link {
 }
 .orangetext{
   font-size: .8em;
-  color: #FF7F27;
+  color: var(--logocolor);
 }
 .orangeclip{
   clip-path:polygon(2.6% 60.6%,3.4% 54.4%,5.6% 48.0%,9.6% 43.0%,13.0% 38.2%,17.8% 33.8%,23.0% 30.4%,25.8% 29.0%,31.4% 27.8%,33.6% 27.8%,38.4% 29.4%,42.4% 27.0%,45.8% 24.6%,53.0% 24.6%,59.8% 25.0%,
@@ -118,7 +114,7 @@ a:link {
     2.6% 60.6%);
     grid-column: 1;
     grid-row: 1;
-    background-color: #FF7F27;
+    background-color: var(--logocolor);
 }
 .leafclip{
   clip-path:polygon(
@@ -128,14 +124,14 @@ a:link {
     );
   grid-column: 1;
   grid-row: 1;
-  background-color: #22B14C;
+  background-color:var(--logocolor);
 }
 .reversenavitem{
   border-radius: 30px;
   height:80%;
   padding-left: 8%;
   padding-right: 8%;
-  background-color: #363636;
+  background-color:var(--logocolor);
   margin: auto;
 }
 .navitemsmall{
@@ -146,11 +142,12 @@ a:link {
   height:90%;
   margin:auto;
   aspect-ratio: 1/1;
-  background-color: white;
   display: grid;
   grid-template-rows: 30% 45% 25%;
-  border:2px solid #EDEDED;
+  border:2px solid var(--bodycolor);
   border-radius: 10px;
+  background-color: var(--bodycolor);
+  border-radius: 2px;
 }
 .month{
   background-color: #1C913E;
@@ -160,10 +157,12 @@ a:link {
 .navday{
   color:black;
   font-size:.7em;
+  background-color: white;
 }
 .weekday{
   color:#1C913E;
   font-size: .4em;
+  background-color: white;
 }
 .form{
   overflow: hidden;
@@ -171,16 +170,16 @@ a:link {
 #logout{
   background-color: inherit;
   border:none;
-  color:var(--main);
+  color:var(--textcolormain);
 }
 .profileback{
-  background-color: white;
+  background-color: var(--bodycolor);
   border-radius: 30px;
   height: 80%;
   margin:auto;
 }
 .profileclip{
-  background-color: black;
+  background-color: var(--logocolor);
   height:50%;
   width:50%;
   clip-path:polygon(27.4% 24.8%,27.4% 20.8%,28.0% 17.4%,30.4% 12.6%,32.8% 9.6%,35.8% 6.6%,39.2% 4.6%,41.8% 3.4%,44.8% 3.0%,48.0% 2.2%,51.0% 2.2%,55.2% 3.0%,57.6% 3.8%,61.0% 4.6%,63.8% 6.4%,
@@ -197,15 +196,14 @@ a:link {
   height:50%;
   width:50%;
 }
+.menuborder{
+  border: 2px solid var(--textcolormain);
+}
 .menuclip{
-  background-color: black;
-  height:80%;
-  width:80%;
-  clip-path:polygon(10.6% 31.8%,11.0% 21.0%,91.2% 21.4%,91.2% 31.2%,10.6% 31.8%,
-      10.2% 44.8%,11.0% 55.2%,91.0% 55.2%,91.2% 45.4%,10.2% 44.8%,
-      10.6% 31.8%,
-      11.8% 68.6%,91.8% 68.2%,91.8% 78.6%,10.6% 79.0%,11.8% 68.6%,
-      10.6% 31.8%)
+  background-color:var(--logocolor);
+  height:50%;
+  width:50%;
+  clip-path:polygon(10.0% 31.0%,10.4% 10.2%,91.0% 10.0%,91.0% 31.0%,10.0% 31.0%,10.0% 41.0%,10.0% 59.0%,91.0% 59.0%,91.0% 41.0%,10.0% 41.0%,10.0% 31.0%,10.0% 69.0%,91.0% 69.0%,90.6% 89.0%,10.0% 89.0%,10.2% 69.0%,10.0% 31.0%);
 }
 
 #signslide{
@@ -222,7 +220,7 @@ a:link {
   width:100%;
   box-sizing: border-box;
   overflow: hidden;
-  background-color: white;
+  background-color:white;
 }
 #signin{
   position: absolute;
@@ -234,6 +232,7 @@ a:link {
   z-index: 15;
   border-top:3px solid #E0E0E0;
   overflow: hidden;
+  color:var(--logocolor);
 }
 .signintop{
   position: absolute;
@@ -311,7 +310,7 @@ a:link {
   border-radius: 10px;
   border:none;
   border-left:3px solid #E0E0E0;
-  font-size: 3vw;
+  font-size: 1.5em;
 }
 .userforgot{
   display:flex;
@@ -327,72 +326,36 @@ a:link {
   color:#040073;
   font-size: .6em;
 }
-#signinbutton{
+.signinbutton{
   display:flex;
   justify-content:center;
   align-items:center;
   position: absolute;
   left:5%;
   top:26%;
-  font-size: 3vw;
+  font-size: 1.5em;
   font-weight: bold;
   height:10%;
   width:90%;
-  border:3px solid #040073;
-  color:#040073;
+  border:3px solid var(--logocolor);
   background-color: white;
   border-radius: 10px;
   text-align: center;
   transition: color 1s,background-color 1s;
+  color:var(--logocolor)
 }
-#signinbutton:hover{
-  color:white;
-  background-color:#040073;
+.signinbutton:hover{
+  color:var(--textcolormain);
+  background-color:var(--bodycolor);
+  border:3px solid var(--logocolor);
+}
+#signinbutton{
+  left:5%;
+  top:26%;
 }
 #signinbutton2{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  position: absolute;
   left:5%;
   top:38%;
-  font-size: 3vw;
-  font-weight: bold;
-  height:10%;
-  width:90%;
-  border:3px solid #040073;
-  color:#040073;
-  background-color: white;
-  border-radius: 10px;
-  text-align: center;
-  transition: color 1s,background-color 1s;
-}
-#signinbutton2:hover{
-  color:white;
-  background-color:#040073;
-}
-#signupbutton{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  position: absolute;
-  left:5%;
-  top:38%;
-  font-size: 3vw;
-  font-weight: bold;
-  height:10%;
-  width:90%;
-  border:3px solid white;
-  color:white;
-  background-color: #040073;
-  border-radius: 10px;
-  text-align: center;
-  transition: color 1s,background-color 1s,border 1s;
-}
-#signupbutton:hover{
-  color:#040073;
-  background-color:white;
-  border:3px solid #040073;
 }
 #userdiv{
   top:2%;
@@ -414,9 +377,8 @@ a:link {
   width:90%;
   height:10%;
   font-weight: bold;
-  font-size: 3vw;
+  font-size: 1.5em;
   border-bottom:3px solid #F0F0F0;
-  color:#040073;
   transition:color 1s,background-color 1s,border 1s;
   transition-timing-function: linear;
 }
@@ -437,3 +399,56 @@ a:link {
 #signinbot4{
   top:82%;
 }
+.langhouse{
+  height: 100%;
+  width:100%;
+  display: flex;
+  justify-content: space-around;
+  font-size: .6em;
+}
+.langselected{
+  background-color: var(--logocolor);
+  color:var(--textcolormain)
+}
+
+/* -----------------------------Button styleing------------------------- */
+.batterybutton{
+  box-sizing: border-box;
+  margin:auto;
+  height: 90%;
+  width:96%;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  overflow: hidden;
+}
+.clipstyle{
+  height:45%;
+  margin:auto;
+  aspect-ratio:1/1;
+}
+.batterytext{
+  font-size: .9em;
+  font-family: 'Courier New', monospace;
+  overflow: hidden;
+}
+.batterytopcolor{
+  background-color: #2E2E2E;
+}
+.battextcolor{
+  color:#2E2E2E;
+}
+/* <div class="!!!!!set size here!!!!">
+  <div class="batterybutton !!!!!!left side background color!!!!!!">
+    <div class="fullfill !!!!!!left side background color (same as above)!!!!!!">
+      <div class="clipstyle !!!clip-path!!!! !!!!Main Color!!!!"></div>
+    </div>
+    <div class="fullfill batterybodyclip !!!!!Main Color!!!!!!">
+      <div id="batterytextoption" class="center batterytext !!!!!!!Text Color ( same as left color)!!!!!!!!">
+        !!!!!!Text inside Button !!!!!!!
+      </div>
+    </div>
+  </div>
+</div> */
+
+/* -----------------------------end button styling------------------------ */

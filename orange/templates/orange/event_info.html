@@ -4,6 +4,7 @@
 {% block pregroup %}
 {% get_static_prefix as STATIC_PREFIX %}
 
+
     <link rel="stylesheet" href="{% static 'orange/css/event_info.css' %}">
 
     <div class="event">
@@ -16,16 +17,29 @@
         ></img>
       {% endif %}
       <div class="almostfullfill mediumtext"><div class="center">{{event.description}}</div></div>
+
       <div class="seperator"></div>
-      <div class="almostfullfill smalltext"><div class="center">Price: {{event.price}}</div></div>
+      <div class="almostfullfill smalltext"><div class="center">{{language.price}} {{event.price}}</div></div>
       <div class="seperator"></div>
+
       {% if event.link_to_external_site %}
-        <a href="{{event.link_to_external_site}}" class="almostfullfill button smalltext"><div class="center">{{event.link_button_text}}</div></a>
+        <div class="eventlink">
+          <a href="{{event.link_to_external_site}}" class="batterybutton batterytopcolor">
+            <div class="fullfill batterytopcolor">
+              <div class="clipstyle linkclip linkcolor"></div>
+            </div>
+            <div class="fullfill batterybodyclip linkcolor">
+              <div id="batterytextoption" class="center batterytext batterytextolor">
+                {{event.link_button_text}}
+              </div>
+            </div>
+          </a>
+        </div>
       {% endif %}
 
       <div class="allmostfullfill mediumtext">
         <div class="center">
-          Number of Attendies: {{ event.tendies.all|length }}
+          {{language.num}} {{ event.tendies.all|length }}
         </div>
       </div>
 
@@ -35,11 +49,11 @@
               <div class="almostfullfill">
                 <div id="attendtext" class="center">
                   {% if user in event.tendies.all %}
-                      You are Attending, cant make it? no problem.
+                      {{language.youare}}
                     {% else %}
-                      Let
+                      {{language.let}}
                       {% if event.org %}{{event.org.name}}{% else %}{{event.user.email}}{% endif %}
-                      know your coming, and get updates via Email
+                      {{language.know}}
                   {% endif %}
                 </div>
               </div>
@@ -57,9 +71,9 @@
                   {% endif %}">
                     <div id="batterytextoption" class="center batterytext">
                       {% if user in event.tendies.all %}
-                        Cancel attendance
+                        {{language.cancel}}
                         {% else %}
-                          Join Event!
+                          {{language.join}}
                       {% endif %}
                     </div>
                   </div>

@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-77m_d)k+fy8q8&-#5mdq&v+x!(ut4x6gp1!pmib%_%a)oz#tsx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gberry1776.pythonanywhere.com','www.garykuchta.ch']
 
 
 # Application definition
@@ -109,6 +109,13 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kuchtagary1@gmail.com'
+EMAIL_HOST_PASSWORD = 'ydml akjx luwp xjpx'
 
 
 # Static files (CSS, JavaScript, Images)

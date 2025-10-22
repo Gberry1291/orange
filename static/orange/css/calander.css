@@ -2,8 +2,10 @@
   height:7%;
   width:100%;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto;
+  color:black;
 }
+
 .colorfill{
   display: flex;
   height: 90%;
@@ -45,6 +47,7 @@
   background-color: #DFF5DB;
   border: 2px solid #A2F5A4;
   box-sizing: border-box;
+  color:black;
 }
 .arrowhouse{
   height: 90%;
@@ -76,6 +79,7 @@
   width:100%;
   display: grid;
   grid-template-columns: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% 14.2%;
+  color:black;
 }
 .calendar-dates{
   height:100%;
@@ -102,6 +106,7 @@
   width:98%;
   margin:auto;
   background: #E4F5E4;
+  color:black;
 }
 .eventday{
   display: grid;
@@ -116,6 +121,7 @@
   width:96%;
   margin:auto;
   background-color: #DED98A;
+  color:black;
   overflow: hidden;
   border-radius: 5px;
   overflow: hidden;
@@ -258,6 +264,7 @@ input::file-selector-button{
   grid-template-columns: auto auto ;
   padding:0%;
   box-sizing: border-box;
+  color:black;
 }
 .selecthouse{
   height: 100%;

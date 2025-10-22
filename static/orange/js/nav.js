@@ -69,3 +69,37 @@ function setDate(){
   document.getElementById("daydaynav").innerHTML=dayday
 }
 setDate()
+
+const langoptions=document.querySelectorAll(".langop")
+langoptions.forEach((item) => {
+  item.addEventListener("click",function(){
+    setlanguage(item.getAttribute("data-lang"))
+    location.reload()
+  })
+});
+function resetlang(){
+  langoptions.forEach((itemo) => {itemo.classList.remove("langselected")});
+}
+function langfetch(){
+  let languagetest=getCookie("language")
+  if (languagetest) {
+    setlanguage(languagetest)
+  }
+  else {
+    setlanguage("de")
+  }
+}
+function setlanguage(lang){
+
+  setCookie("language",lang,360)
+  resetlang()
+  langoptions.forEach((item) => {
+    if (item.getAttribute("data-lang")==lang){
+      item.classList.add("langselected")
+    }
+  });
+}
+
+$( document ).ready(function() {
+  langfetch()
+});

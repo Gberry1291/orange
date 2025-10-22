@@ -30,7 +30,7 @@ function filterEvents(){
 
 }
 
-document.getElementById("resetdate").addEventListener("click",resetFilter)
+// document.getElementById("resetdate").addEventListener("click",resetFilter)
 function resetFilter(){
   events.forEach((item) => {
     item.classList.remove("hide")

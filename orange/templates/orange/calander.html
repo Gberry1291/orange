@@ -7,13 +7,10 @@
 
   <div class="legendhouse">
     <div class="colorfill free">
-      <div class="center">free</div>
+      <div class="center" id="available">{{language.available}}</div>
     </div>
     <div class="colorfill semi">
-      <div class="center">semi</div>
-    </div>
-    <div class="colorfill unavailable">
-      <div class="center">unavailable</div>
+      <div class="center" id="event">{{language.event}}</div>
     </div>
     {% if user.is_authenticated %}
       <div class="fullfill togevent">
@@ -22,7 +19,7 @@
             <div class="traschcan"></div>
           </div>
           <div class="fullfill removehouse">
-            <div class="center removetext">Add Event</div>
+            <div class="center removetext addevent">{{language.addevent}}</div>
           </div>
         </div>
       </div>
@@ -33,7 +30,7 @@
             <div class="traschcan"></div>
           </div>
           <div class="fullfill removehouse">
-            <div class="center removetext">Sign in to Post Events!</div>
+            <div class="center removetext" id="addeventnot">{{language.addeventnot}}</div>
           </div>
         </div>
       </div>
@@ -62,13 +59,13 @@
 
       <div class="calendar-body">
           <div class="calendar-weekdays fullfill">
-              <li class="fullfill"><div class="center">Sun</div></li>
-              <li class="fullfill"><div class="center">Mon</div></li>
-              <li class="fullfill"><div class="center">Tue</div></li>
-              <li class="fullfill"><div class="center">Wed</div></li>
-              <li class="fullfill"><div class="center">Thu</div></li>
-              <li class="fullfill"><div class="center">Fri</div></li>
-              <li class="fullfill"><div class="center">Sat</div></li>
+              <li class="fullfill"><div class="center" id="sun">{{language.sun}}</div></li>
+              <li class="fullfill"><div class="center" id="mon">{{language.mon}}</div></li>
+              <li class="fullfill"><div class="center" id="tue">{{language.tue}}</div></li>
+              <li class="fullfill"><div class="center" id="wed">{{language.wed}}</div></li>
+              <li class="fullfill"><div class="center" id="thu">{{language.thu}}</div></li>
+              <li class="fullfill"><div class="center" id="fri">{{language.fri}}</div></li>
+              <li class="fullfill"><div class="center" id="sat">{{language.sat}}</div></li>
           </div>
           <div id="caldates" class="calendar-dates"></div>
       </div>
@@ -84,7 +81,7 @@
         <div class="selecthouse" id="selecthouse">
           {% if user.is_authenticated %}
             <select name="eventselect" id="eventselect">
-              <option value="none">Choose an Event</option>
+              <option value="none">{{language.choose}}</option>
               {% for event in user.eventowner.all %}
               <option value="{{event.name}}">{{event.name}}</option>
               {% endfor %}
@@ -95,7 +92,7 @@
                   {% endif %}
                 {% endfor %}
               {% endfor %}
-              <option value="newevent">Create New</option>
+              <option value="newevent" id="createnew">{{language.createnew}}</option>
             </select>
           {% endif %}
         </div>
@@ -105,7 +102,7 @@
               <div class="saveclip"></div>
             </div>
             <div id="savedaychanges" class="fullfill removehouse">
-              <div class="center removetext">Save Changes</div>
+              <div class="center removetext savechanges">{{language.savechanges}}</div>
             </div>
           </div>
           <div id="addeventbutton" class="removebutton eventhousebutton togevent">
@@ -113,7 +110,7 @@
               <div class="traschcan"></div>
             </div>
             <div class="fullfill removehouse">
-              <div class="center removetext">Add Event</div>
+              <div class="center removetext addevent">{{language.addevent}}</div>
             </div>
           </div>
         </div>
@@ -122,14 +119,14 @@
         <div id="am" class="halfday am">
           {% for x in theam %}
              <a class="hour free">
-               <div class="center">{{x}}.uhr free</div>
+               <div class="center">{{x}}{{language.timefree}}</div>
              </a>
           {% endfor %}
         </div>
         <div id="pm" class="halfday pm">
           {% for x in thepm %}
              <a class="hour free">
-               <div class="center">{{x}}.uhr free</div>
+               <div class="center">{{x}}{{language.timefree}}</div>
              </a>
           {% endfor %}
         </div>

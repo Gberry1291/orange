@@ -12,19 +12,31 @@ from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 from django.core import serializers
 from datetime import timedelta
 from django.utils import timezone
+from orange.language import languagedic
+from django.core.mail import send_mail
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 # Create your views here.
 class Homepage(TemplateView):
     template_name= 'orange/home.html'
     def get(self, request):
 
-        # days= Day.objects.all()
-        specific_date = timezone.now()
+        specific_date = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
         days = Day.objects.filter(date__gte=specific_date)[:7]
-        #
-        # days=Day.objects.filter(date__range=["2011-01-01", "2011-01-31"])
 
-        args = {"daylist":days}
+        languagecookie="de"
+        try:
+            languagecookie=request.COOKIES["language"]
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
+
+        args = {"daylist":days,"language":languagedic[languagecookie]["home"],"navlang":languagedic[languagecookie]["nav"]}
         return render(request,self.template_name,args)
 
 class ThanksPage(TemplateView):
@@ -78,6 +90,17 @@ class Signin(TemplateView):
             except Exception as e:
                 searchtext="A User with the Email adress "+username2.lower()+" is already in use."
 
+        if thetype=="edit":
+            name= request.POST.get('name')
+            pic= request.FILES.get('pic')
+            blank= request.POST.get('blank')
+            if blank=="delete":
+                request.user.display_pic.delete()
+            if pic:
+                request.user.display_pic=pic
+            request.user.username=name
+            request.user.save()
+            return HttpResponseRedirect(next)
 
         response=HttpResponse(searchtext)
         return response
@@ -88,7 +111,17 @@ class EventInfo(TemplateView):
     def get(self, request, slug):
         event= get_object_or_404(Event,slug=self.kwargs.get('slug'))
 
-        args = {'event':event}
+        languagecookie="de"
+        try:
+            languagecookie=request.COOKIES["language"]
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
+
+        args = {'event':event,"language":languagedic[languagecookie]["event_info"],"navlang":languagedic[languagecookie]["nav"]}
         return render(request,self.template_name,args)
 
 class OrganizationInfo(TemplateView):
@@ -97,7 +130,17 @@ class OrganizationInfo(TemplateView):
     def get(self, request, slug):
         org= get_object_or_404(Organization,slug=self.kwargs.get('slug'))
 
-        args = {'org':org}
+        languagecookie="de"
+        try:
+            languagecookie=request.COOKIES["language"]
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
+
+        args = {'org':org,"navlang":languagedic[languagecookie]["org_info"],"navlang":languagedic[languagecookie]["nav"]}
         return render(request,self.template_name,args)
 
 class Calander(TemplateView):
@@ -115,7 +158,17 @@ class Calander(TemplateView):
         theam=range(1,13)
         thepm=range(13,25)
 
-        args = {"daylist":daydic,"theam":theam,"thepm":thepm,"from":"calander"}
+        languagecookie="de"
+        try:
+            languagecookie=request.COOKIES["language"]
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
+
+        args = {"daylist":daydic,"theam":theam,"thepm":thepm,"from":"calander","language":languagedic[languagecookie]["calander"],"eventform":languagedic[languagecookie]["event_form"],"navlang":languagedic[languagecookie]["nav"]}
         return render(request,self.template_name,args)
 
 class NewEvent(TemplateView):
@@ -217,12 +270,13 @@ class Profile(TemplateView):
             "myadmins":[],
             "mypresidents":[]
         }
+        emaillist=[]
         if request.user.is_authenticated:
 
             orglist= Organization.objects.all()
 
             for org in orglist:
-                orgdic["orgs"].append(org.name)
+                orgdic["orgs"].append({"name":org.name,"slug":org.slug})
 
                 if request.user in org.members.all():
                     orgdic["myorgs"].append({"name":org.name,"slug":org.slug})
@@ -262,8 +316,6 @@ class Profile(TemplateView):
                             presdic["normies"].append(bigguy.email)
                     orgdic["mypresidents"].append(presdic)
 
-
-
             eventlist =request.user.eventowner.all()
             for event in eventlist:
                 eventdic[event.slug]={
@@ -277,8 +329,21 @@ class Profile(TemplateView):
                     "link_button_text":event.link_button_text
                 }
 
+            if request.user.is_admin:
+                for eve in Event.objects.all():
+                    emaillist.append(eve.name)
 
-        args = {"orgdic":orgdic,"eventdic":eventdic,"from":"profile"}
+        languagecookie="de"
+        try:
+            languagecookie=request.COOKIES["language"]
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
+
+        args = {"emaillist":emaillist,"orgdic":orgdic,"eventdic":eventdic,"from":"profile","language":languagedic[languagecookie]["profile"],"navlang":languagedic[languagecookie]["nav"],"eventform":languagedic[languagecookie]["event_form"]}
         return render(request,self.template_name,args)
 
 class NewOrg(TemplateView):
@@ -385,5 +450,77 @@ class UserPage(TemplateView):
 
         theuser=User.objects.get(email=self.kwargs.get("slug"))
 
-        args={"theuser":theuser}
+        languagecookie="de"
+        try:
+            languagecookie=request.COOKIES["language"]
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
+
+        args={"theuser":theuser,"navlang":languagedic[languagecookie]["nav"]}
+        return render(request,self.template_name,args)
+
+class SendEmail(TemplateView):
+    template_name = 'orange/profile.html'
+    def post(self,request):
+
+        decodedword=json.loads(request.body.decode('ascii'))
+        typeoption=decodedword["type"]
+        nameoption=decodedword["name"]
+        sub=decodedword["sub"]
+        head=decodedword["head"]
+        bod=decodedword["bod"]
+
+        returninfo={
+            "message":"just checking",
+            "check":""
+        }
+
+        if typeoption=="all":
+            text_content = render_to_string(
+                "orange/email.txt",
+                context={"message": bod,"fromtext":head},
+            )
+
+            # Secondly, render the HTML content.
+            html_content = render_to_string(
+                "orange/emailtemplate.html",
+                context={"message": bod,"fromtext":head},
+            )
+
+            # Then, create a multipart email instance.
+            msg = EmailMultiAlternatives(
+                sub,
+                text_content,
+                "kuchtagary1@gmail.com",
+                [request.user.email],
+                headers={"List-Unsubscribe": "<mailto:unsub@example.com>"},
+            )
+
+            # Lastly, attach the HTML content to the email instance and send.
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+
+            # send_mail('homepage email',"Testing",settings.EMAIL_HOST_USER,['kuchtagary1@gmail.com'],fail_silently=False)
+
+        if typeoption=="club":
+            None
+
+        if typeoption=="event":
+            None
+
+
+
+
+        response=JsonResponse(returninfo)
+        return response
+
+class EmailTemplate(TemplateView):
+    template_name= 'orange/emailtemplate.html'
+    def get(self, request):
+
+        args = {"message":"hihi","fromtext":"the messege is from Gary"}
         return render(request,self.template_name,args)

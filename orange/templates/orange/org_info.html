@@ -27,9 +27,9 @@
         <div class="almostfullfill">
           <div id="attendtext" class="center">
             {% if user in org.members.all %}
-                Your a Member of {{org.name}}
+                {{language.member}} {{org.name}}
               {% else %}
-                Do you want to join {{org.name}}?
+              {{language.join}} {{org.name}}?
             {% endif %}
           </div>
         </div>
@@ -41,7 +41,7 @@
               </div>
               <div class="fullfill batterybodyclip batterybodycolor">
                 <div id="batterytextoption" class="center batterytext">
-                      Join Event!
+                      {{language.joinit}}
                 </div>
               </div>
             </div>

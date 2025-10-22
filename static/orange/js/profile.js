@@ -11,8 +11,10 @@ for (var i = 0; i < navoptions.length; i++) {
   navoptions[i].addEventListener("click",function(){
     for (var k = 0; k < pages.length; k++) {
       pages[k].classList.remove("selected")
+      navoptions[k].classList.remove("mininavselected")
     }
     pages[j].classList.add("selected")
+    navoptions[j].classList.add("mininavselected")
   })
 }
 
@@ -73,7 +75,7 @@ function firstsearch(){
       let re = new RegExp(word, 'gi');
       let finallist=[]
       for (var i = 0; i < info["orgs"].length; i++) {
-        if (match = re.exec(info["orgs"][i])) {
+        if (match = re.exec(info["orgs"][i]["name"])) {
           finallist.push(info["orgs"][i])
         }
       }
@@ -83,7 +85,7 @@ function firstsearch(){
 
           let newname=document.createElement("div")
           newname.className="center"
-          newname.innerHTML=finallist[i]
+          newname.innerHTML=finallist[i]["name"]
 
           newhouse.appendChild(newname)
 
@@ -109,10 +111,16 @@ function searchresultclick(orgname){
   searchit()
   orgPageReset()
   document.getElementById('requestorgpage').classList.add("selected")
-  document.getElementById("requestmembertext").innerHTML="Request to Join"+orgname
-  clubname=orgname
+  document.getElementById("requestmembertext").innerHTML="Request to Join "+orgname["name"]
+  document.getElementById("visitclub").href=extension+"/"+"org/"+orgname["slug"]
+  clubname=orgname["name"]
   type="member_request"
 }
+document.getElementById("closesearch").addEventListener("click",function(){
+  orgPageReset()
+  document.getElementById("myorgpage").classList.add("selected")
+})
+
 pulls.forEach((item) => {
   item.addEventListener("click",pullinfo)
 });
@@ -189,7 +197,6 @@ editbuttons.forEach((item) => {
 });
 function filleditform(){
   let club=this.getAttribute('data-name')
-  console.log(eventdic[club]["name"])
   document.getElementById('nameinput').value=eventdic[club]["name"]
   document.getElementById('descriptioninput').value=eventdic[club]["description"]
   document.getElementById('descriptionshortinput').value=eventdic[club]["description_short"]
@@ -198,4 +205,61 @@ function filleditform(){
   document.getElementById('linkinput').value=eventdic[club]["link_to_external_site"]
   document.getElementById('linktoinput').value=eventdic[club]["link_button_text"]
 
+}
+
+
+document.getElementById("loadpic").addEventListener("change",function(){
+  var file = document.getElementById('loadpic').files[0];
+  var reader  = new FileReader();
+  // it's onload event and you forgot (parameters)
+  reader.onload = function(e)  {
+      image=document.getElementById('picloader')
+      image.src = e.target.result;
+   }
+   // you have to declare the file loading
+   reader.readAsDataURL(file)
+   document.getElementById("profilesave").classList.add("selected")
+   togpics()
+})
+document.getElementById("username").addEventListener("input",function(){
+  document.getElementById("profilesave").classList.add("selected")
+})
+let loadhouses=document.querySelectorAll(".loadhouse")
+function togpics(){
+  loadhouses.forEach((item) => {
+    item.classList.toggle("selected")
+  });
+}
+document.getElementById("delpic").addEventListener("click",function(){
+  togpics()
+  image=document.getElementById('picloader')
+  image.src = extension+"/static/orange/css/propics/guest.png";
+  document.getElementById("blank").value="delete"
+  document.getElementById("profilesave").classList.add("selected")
+})
+
+document.getElementById("emailbutton").addEventListener("click",sendemail)
+function sendemail(){
+  let theval=document.getElementById('listselect').value.split("<G>")
+  let thesub=document.getElementById("messagesubject").value
+  let thehead=document.getElementById("messageheader").value
+  let thetext=document.getElementById("messagetext").value
+  path=extension+"/sendemail"
+  whattosend=JSON.stringify(
+    {
+      "name":theval[1],
+      "type":theval[0],
+      "sub":thesub,
+      "head":thehead,
+      "bod":thetext,
+    })
+
+
+
+  setreq()
+  fetch(newreq).then(function(response) {
+    return response.json()
+  }).then(function(x) {
+    alert(x["message"])
+  });
 }

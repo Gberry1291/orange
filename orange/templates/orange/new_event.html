@@ -8,24 +8,24 @@
     </div>
     <form id="neweventform" class="neweventform" enctype="multipart/form-data" method="post" action="{% url 'newevent' %}">
       {% csrf_token %}
-      <input id="nameinput" class="eventinput required" type="text" name="name" value="" placeholder="Event Name">
-      <input id="descriptioninput" class="eventinput required"  type="text" name="description" value="" placeholder="Description">
+      <input id="nameinput" class="eventinput required" type="text" name="name" value="" placeholder="{{eventform.name}}">
+      <input id="descriptioninput" class="eventinput required"  type="text" name="description" value="" placeholder="{{eventform.des}}">
       <input id="descriptionshortinput" class="eventinput required"  type="text" name="descriptionshort" value="" placeholder="Short Description">
-      <input id="additionalinfoinput" class="eventinput required"  type="text" name="additionalinfo" value="" placeholder="Additional Info (keep short)">
+      <input id="additionalinfoinput" class="eventinput required"  type="text" name="additionalinfo" value="" placeholder="{{eventform.add}}">
       <select class="eventinput" name="orgselect" id="orgselect">
-        <option value="none">Host Organization</option>
+        <option value="none">{{eventform.host}}</option>
         {% for orgo in orgs %}
         <option value="{{orgo.name}}">{{orgo.name}}</option>
         {% endfor %}
       </select>
-      <input id="priceinput" class="eventinput"  type="text" name="price" value="" placeholder="price ( free by default )">
+      <input id="priceinput" class="eventinput"  type="text" name="price" value="" placeholder="{{eventform.price}}">
       <input class="eventinput"  type="file" name="pic" value="">
-      <input id="linkinput" class="eventinput"  type="text" name="link" value="" placeholder="link to external site ( optional )">
-      <input id="linktoinput" class="eventinput"  type="text" name="linkto" value="" placeholder="description of where link goes">
+      <input id="linkinput" class="eventinput"  type="text" name="link" value="" placeholder="{{eventform.linkto}}">
+      <input id="linktoinput" class="eventinput"  type="text" name="linkto" value="" placeholder="{{eventform.linkdes}}">
       <input type="text" name="from" value="{{redirect}}" hidden>
       <button id="submitevent" type="submit" name="button" class="eventbutton">
         <div class="center">
-          Post Event
+          {{eventform.post}}
         </div>
       </button>
     </form>
