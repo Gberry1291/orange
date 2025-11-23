@@ -29,7 +29,17 @@ const manipulate = () => {
 
   for (let i = dayone; i > 0; i--) {
     daycount+=1
-    lit += `<div class="day inactive" data-month="${month-1}" data-year="${year}" data-day="${monthlastdate - i + 1}"> <div class="center">${monthlastdate - i + 1}</div> </div>`;
+    let thedate=i+"-"+(month-1)+"-"+year
+    if (eventinfo[thedate]) {
+      lit += `<div class="day inactive" data-month="${month-1}" data-year="${year}" data-day="${monthlastdate - i + 1}"> <div class="center">${monthlastdate - i + 1}</div> </div>`
+      for (let [key, value] of Object.entries(eventinfo[thedate]["events"])) {
+          lit += `<div class="fullfill eventhouse"><div class="center">${value[0]}</div></div>`
+      }
+      lit += `</div>`
+
+    }else{
+      lit += `<div class="day inactive" data-month="${month-1}" data-year="${year}" data-day="${monthlastdate - i + 1}"> <div class="center">${monthlastdate - i + 1}</div> </div>`;
+    }
   }
 
 
@@ -60,8 +70,21 @@ const manipulate = () => {
 
 
   for (let i = dayend; i < 6; i++) {
-    lit += `<div class="day inactive" data-day="${i - dayend + 1}" data-month="${month+2}" data-year="${year}"> <div class="center">${i - dayend + 1}</div> </div>`;
+
+    let thedate=(i - dayend + 1)+"-"+(month+2)+"-"+year
+    if (eventinfo[thedate]) {
+      lit += `<div class="eventday semi inactive" data-month="${month+2}" data-year="${year}" data-day="${i - dayend + 1}"> <div class="fullfill"><div class="center">${i - dayend + 1}</div> </div>`
+      for (let [key, value] of Object.entries(eventinfo[thedate]["events"])) {
+          lit += `<div class="fullfill eventhouse"><div class="center">${value[0]}</div></div>`
+      }
+      lit += `</div>`
+
+    }else{
+      lit += `<div class="day inactive" data-day="${i - dayend + 1}" data-month="${month+2}" data-year="${year}"> <div class="center">${i - dayend + 1}</div> </div>`;
+    }
+
     daycount+=1
+
   }
 
 
@@ -123,6 +146,7 @@ function addEventDayClicks(){
       selectedday = (clickedYear+"-"+clickedMonth+"-"+clickedDay)
       am.innerHTML=""
       pm.innerHTML=""
+      console.log(finallist)
       buildDex(eventinfo[finallist])
       togday()
     });

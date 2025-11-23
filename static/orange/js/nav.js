@@ -5,6 +5,7 @@ var newreq=""
 var whattosend=""
 var path=""
 const csrftoken = getCookie('csrftoken');
+var signininfo = JSON.parse(document.getElementById('signininfo').textContent);
 function setreq(){
   newreq = new Request(
       path,
@@ -100,6 +101,13 @@ function setlanguage(lang){
   });
 }
 
+function signinfetch(){
+  if (signininfo["alert"]=="yes") {
+    alert(signininfo["text"])
+  }
+}
+
 $( document ).ready(function() {
   langfetch()
+  signinfetch()
 });

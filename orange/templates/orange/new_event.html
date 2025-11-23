@@ -10,7 +10,7 @@
       {% csrf_token %}
       <input id="nameinput" class="eventinput required" type="text" name="name" value="" placeholder="{{eventform.name}}">
       <input id="descriptioninput" class="eventinput required"  type="text" name="description" value="" placeholder="{{eventform.des}}">
-      <input id="descriptionshortinput" class="eventinput required"  type="text" name="descriptionshort" value="" placeholder="Short Description">
+      <input id="descriptionshortinput" class="eventinput required"  type="text" name="descriptionshort" value="" placeholder="{{eventform.full}}">
       <input id="additionalinfoinput" class="eventinput required"  type="text" name="additionalinfo" value="" placeholder="{{eventform.add}}">
       <select class="eventinput" name="orgselect" id="orgselect">
         <option value="none">{{eventform.host}}</option>

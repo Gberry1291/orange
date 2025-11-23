@@ -7,18 +7,6 @@
   border-radius: 5px;
   margin-bottom:8%;
 }
-.bigtext{
-  font-size: 2em;
-}
-.mediumtext{
-  font-size: 1.5em;
-}
-.mediumsmalltext{
-  font-size: 1.4em;
-}
-.smalltext{
-  font-size: 1.3em;
-}
 
 .nametext{
   color:var(--logocolor);

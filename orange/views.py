@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,get_object_or_404
 from django.views.generic import TemplateView
 from orange.models import Event,Day,Organization
 from accounts.models import Account
 from django.contrib.auth import get_user_model, authenticate, login
 User= get_user_model()
-from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 import math
 import json
@@ -17,6 +16,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.contrib import messages
 
 # Create your views here.
 class Homepage(TemplateView):
@@ -35,6 +35,7 @@ class Homepage(TemplateView):
             pass
         finally:
             pass
+
 
         args = {"daylist":days,"language":languagedic[languagecookie]["home"],"navlang":languagedic[languagecookie]["nav"]}
         return render(request,self.template_name,args)
@@ -55,8 +56,17 @@ class Welcomepage(TemplateView):
     template_name= 'orange/welcome.html'
     def get(self, request):
 
+        languagecookie="de"
+        try:
+            languagecookie=request.COOKIES["language"]
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
 
-        args = {"from":"calander"}
+        args = {"from":"calander","navlang":languagedic[languagecookie]["nav"]}
         return render(request,self.template_name,args)
 
 class Signin(TemplateView):
@@ -71,13 +81,26 @@ class Signin(TemplateView):
 
         searchtext="login sucessful"
         if thetype=="login":
+            try:
+                theuser=User.objects.get(email=nameinput.lower())
+            except Exception as e:
+                specific_date = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
+                days = Day.objects.filter(date__gte=specific_date)[:7]
+                languagecookie=request.COOKIES["language"]
+                searchtext=languagedic[languagecookie]["alert"]["nouser1"]+nameinput+languagedic[languagecookie]["alert"]["nouser2"]
+                args = {"legalnext":"/","daylist":days,"language":languagedic[languagecookie]["home"],"navlang":languagedic[languagecookie]["nav"],"signininfo":{"alert":"yes","text":searchtext}}
+                return render(request,'orange/home.html',args)
             user = authenticate(request, email=nameinput.lower(), password=passinput)
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect(next)
             else:
-                return HttpResponseRedirect(next)
-                searchtext="Wrong Password for "+nameinput
+                specific_date = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
+                days = Day.objects.filter(date__gte=specific_date)[:7]
+                languagecookie=request.COOKIES["language"]
+                searchtext=languagedic[languagecookie]["alert"]["nopass"]+nameinput
+                args = {"legalnext":"/","daylist":days,"language":languagedic[languagecookie]["home"],"navlang":languagedic[languagecookie]["nav"],"signininfo":{"alert":"yes","text":searchtext}}
+                return render(request,'orange/home.html',args)
 
         if thetype=="signup":
             username2=nameinput
@@ -86,9 +109,14 @@ class Signin(TemplateView):
                 User.objects.create_user(username=username2.split("@")[0],email=username2.lower(),password=password)
                 logyouin = authenticate(request, email=username2.lower(), password=password)
                 login(request, logyouin)
-                return HttpResponseRedirect("welcome")
+                return HttpResponseRedirect(next)
             except Exception as e:
-                searchtext="A User with the Email adress "+username2.lower()+" is already in use."
+                specific_date = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
+                days = Day.objects.filter(date__gte=specific_date)[:7]
+                languagecookie=request.COOKIES["language"]
+                searchtext=languagedic[languagecookie]["alert"]["taken1"]+username2.lower()+languagedic[languagecookie]["alert"]["taken2"]
+                args = {"legalnext":"/","daylist":days,"language":languagedic[languagecookie]["home"],"navlang":languagedic[languagecookie]["nav"],"signininfo":{"alert":"yes","text":searchtext}}
+                return render(request,'orange/home.html',args)
 
         if thetype=="edit":
             name= request.POST.get('name')
@@ -168,7 +196,17 @@ class Calander(TemplateView):
         finally:
             pass
 
+
         args = {"daylist":daydic,"theam":theam,"thepm":thepm,"from":"calander","language":languagedic[languagecookie]["calander"],"eventform":languagedic[languagecookie]["event_form"],"navlang":languagedic[languagecookie]["nav"]}
+
+        if request.session.get('newevent'):
+            args["signininfo"]={"alert":"yes","text":languagedic[languagecookie]["alert"]["eve1"]}
+            del request.session['newevent']
+
+        if request.session.get('eventinuse'):
+            args["signininfo"]={"alert":"yes","text":languagedic[languagecookie]["alert"]["eve2"]}
+            del request.session['eventinuse']
+
         return render(request,self.template_name,args)
 
 class NewEvent(TemplateView):
@@ -187,6 +225,10 @@ class NewEvent(TemplateView):
 
         try:
             chosen_event=Event.objects.get(name=nameinput)
+            if thefrom=="calander":
+                if request.user != chosen_event.user:
+                    request.session['eventinuse'] = True
+                    return HttpResponseRedirect(thefrom)
             chosen_event.name = nameinput
             chosen_event.description=descriptioninput
             chosen_event.description_short=descriptionshort
@@ -212,6 +254,7 @@ class NewEvent(TemplateView):
                 link_to_external_site=link,
                 link_button_text=linkto
             )
+            request.session['newevent'] = True
             if request.user:
                 newthing.user=request.user
             if org!="none":

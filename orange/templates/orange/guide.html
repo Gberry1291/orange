@@ -1,0 +1,310 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'orange/css/guide.css' %}">
+<link rel="stylesheet" href="{% static 'orange/css/events.css' %}">
+
+<div id="guide" class="neweventpage">
+  <div class="guidehouse">
+    <div class="topbar">
+      <div class="x togguide"><div class="xclip"></div></div>
+      <div class="guidetitle fullfill">
+        <div class="center bigtext guidetext">
+          {{language.guide1}}
+        </div>
+      </div>
+    </div>
+    <div class="guidebody">
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext guidetext">
+            {{language.guide2}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <div class="examplebutton togevent">
+            <div class="removebutton deletefoodbutton">
+              <div class="fullfill trashhouse">
+                <div class="traschcan"></div>
+              </div>
+              <div class="fullfill removehouse">
+                <div class="center removetext addevent">{{language.addevent}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guidetitle fullfill">
+        <div class="center mediumtext guidetext">
+          {{language.guide3}}
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide4}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <input class="eventinput alertinput" type="text" name="" placeholder="{{eventform.name}}">
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide5}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <input class="eventinput alertinput" type="text" name="" placeholder="{{eventform.des}}">
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide6}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <input class="eventinput alertinput" type="text" name="" placeholder="{{eventform.full}}">
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide7}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <input class="eventinput alertinput" type="text" name="" placeholder="{{eventform.add}}">
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+           {{language.guide8}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <select class="eventinput" name="orgselect" id="orgselect">
+            <option value="none">{{eventform.host}}</option>
+            <option value="{{orgo.name}}">Fondue Lovers</option>
+            <option value="{{orgo.name}}">South Florida Skate</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide9}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <input class="eventinput" type="text" name="" placeholder="{{eventform.price}}">
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide10}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <input class="eventinput"  type="file" name="pic" value="">
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide11}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <input id="linkinput" class="eventinput"  type="text" name="link" value="" placeholder="{{eventform.linkto}}">
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide12}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <input id="linktoinput" class="eventinput"  type="text" name="linkto" value="" placeholder="{{eventform.linkdes}}">
+        </div>
+      </div>
+
+      <div id="nextpage" class="bottomitem fullfill">
+        <div class="next">
+          <div class="center">
+            {{language.guide13}}
+          </div>
+        </div>
+        <div class="arrow"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="pagetwo" class="neweventpage">
+  <div class="guidehouse">
+    <div class="topbar">
+      <div id="closeguide" class="x"><div class="xclip"></div></div>
+    </div>
+
+    <div class="pagetwobody">
+
+      <div class="guidetitle fullfill">
+        <div class="center bigtext guidetext">
+          {{language.guide14}}
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide15}}
+          </div>
+        </div>
+        <div class="minical">
+          <div class="eventday free">
+            <div class="fullfill">
+              <div id="demotoday" class="center active">5</div>
+            </div>
+          </div>
+          <div class="eventday free">
+            <div class="fullfill">
+              <div id="demotodaytwo" class="center next">6</div>
+            </div>
+          </div>
+          <div class="eventday free">
+            <div class="fullfill">
+              <div id="demotodaythree" class="center next">7</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext guidetext">
+            {{language.guide16}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <div class="selecthouse">
+            <select name="eventselect">
+              <option value="">{{language.choose}}</option>
+              <option value="">Fondu Lovers</option>
+              <option value="">{{language.createnew}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext guidetext">
+            {{language.guide17}}
+          </div>
+        </div>
+        <div class="fullfill minitimes">
+          <div class="eventday free">
+            <div class="center next">5 {{language.timefree}}</div>
+          </div>
+          <div class="eventday free">
+            <div class="center next">6 {{language.timefree}}</div>
+          </div>
+          <div class="eventday free">
+            <div class="center next">7 {{language.timefree}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guideitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext guidetext">
+            {{language.guide18}}
+          </div>
+        </div>
+        <div class="rightitem">
+          <div class="removebutton eventhousebutton">
+            <div class="fullfill trashhouse">
+              <div class="saveclip"></div>
+            </div>
+            <div id="savedaychanges" class="fullfill removehouse">
+              <div class="center removetext savechanges">{{language.savechanges}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="finalitem fullfill">
+        <div class="leftitem fullfill">
+          <div class="center guidetext">
+            {{language.guide19}}
+          </div>
+        </div>
+        <div class="rightitem">
+
+          <div class="event bodymargin eventborder">
+
+            <div class="datebanner">
+              <span class="bigtext">05</span>
+              <span class="smalltext">December 2025</span>
+            </div>
+
+            <div class="nametext mediumsmalltext">Fondue Night</div>
+
+            <div class="clocktext">
+
+              <div class="clockclip"></div>
+              <span>18 {{language.guide20}}</span>
+              <span>&nbsp; - &nbsp;</span>
+              <span>20 {{language.guide20}}</span>
+            </div>
+
+            <div class="descriptiontext smalltext">
+              Good Cheese, Good People
+            </div>
+
+            <div class="descriptiontext hostedby">
+              <span>Hosted by: </span><a> Fondue Lovers</a>
+            </div>
+
+            <div class="eventlink">
+              <a class="batterybutton batterytopcolor">
+                <div class="fullfill batterytopcolor">
+                  <div class="clipstyle linkclip linkcolor"></div>
+                </div>
+                <div class="fullfill batterybodyclip linkcolor">
+                  <div id="batterytextoption" class="center batterytext batterytextolor">
+                    Fondue Night
+                  </div>
+                </div>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript" src="{% static 'orange/js/guide.js' %}"></script>

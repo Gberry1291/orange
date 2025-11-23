@@ -2,6 +2,7 @@
   --bodycolor: #C4A4E4;
   --logocolor: #752EE3;
   --textcolormain:#FFFFFF;
+  --blacktext:#000000;
 }
 @font-face {
    font-family: funnel;
@@ -59,6 +60,18 @@ a:link {
 .center{
   margin:auto;
   text-align: center;
+}
+.bigtext{
+  font-size: 2em;
+}
+.mediumtext{
+  font-size: 1.5em;
+}
+.mediumsmalltext{
+  font-size: 1.4em;
+}
+.smalltext{
+  font-size: 1.3em;
 }
 .navbar{
   position: relative;

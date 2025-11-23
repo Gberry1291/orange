@@ -6,11 +6,23 @@
   <link rel="stylesheet" href="{% static 'orange/css/calander.css' %}">
 
   <div class="legendhouse">
-    <div class="colorfill free">
+    <!-- <div class="colorfill free">
       <div class="center" id="available">{{language.available}}</div>
     </div>
     <div class="colorfill semi">
       <div class="center" id="event">{{language.event}}</div>
+    </div> -->
+    <div class="fullfill togguide">
+      <div class="batterybutton batterytopcolor">
+        <div class="fullfill batterytopcolor">
+          <div class="clipstyle bookclip free"></div>
+        </div>
+        <div class="fullfill batterybodyclip free">
+          <div id="batterytextoption" class="center batterytext battextcolor">
+            {{language.guide}}
+          </div>
+        </div>
+      </div>
     </div>
     {% if user.is_authenticated %}
       <div class="fullfill togevent">
@@ -135,6 +147,8 @@
   </div>
 
 {% include "orange/new_event.html" with orgs=user.org_admin.all redirect=from %}
+
+{% include "orange/guide.html" with orgs=user.org_admin.all redirect=from %}
 
 <script type="text/javascript" src="{% static 'orange/js/calander.js' %}"></script>
 

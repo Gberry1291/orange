@@ -237,8 +237,14 @@ document.getElementById("delpic").addEventListener("click",function(){
   document.getElementById("blank").value="delete"
   document.getElementById("profilesave").classList.add("selected")
 })
+try {
+  document.getElementById("emailbutton").addEventListener("click",sendemail)
+} catch (e) {
 
-document.getElementById("emailbutton").addEventListener("click",sendemail)
+} finally {
+
+}
+
 function sendemail(){
   let theval=document.getElementById('listselect').value.split("<G>")
   let thesub=document.getElementById("messagesubject").value

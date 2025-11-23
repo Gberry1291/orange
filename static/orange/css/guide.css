@@ -1,0 +1,79 @@
+.guidehouse{
+  position: relative;
+  top:1%;
+  height:98%;
+  width:98%;
+  margin:auto;
+}
+.guidebody{
+  position: relative;
+  height:90%;
+  width:100%;
+  background-color: white;
+  display: grid;
+  grid-template-rows:12% 7% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8%;
+  padding:0%;
+  box-sizing: border-box;
+}
+.pagetwobody{
+  position: relative;
+  height:90%;
+  width:100%;
+  background-color: white;
+  padding:0%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows:8% 12% 7% 20% 8% 38%;
+  grid-row-gap: 1%;
+}
+
+.guideitem{
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+.finalitem{
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+.guidetext{
+  color:black;
+  width:94%;
+}
+.examplebutton{
+  position: relative;
+  height: 50%;
+  width:80%;
+  margin: auto;
+  top:25%;
+}
+.inputlistone{
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+}
+.bottomitem{
+  display: flex;
+  justify-content: center;
+}
+.next{
+  color:var(--blacktext);
+  display: flex;
+}
+.arrow{
+  background-color: black;
+  height: 100%;
+  aspect-ratio:1 / 1;
+  float: left;
+  clip-path:polygon(30% 10%,90% 50%,30% 90%,0% 90%,60% 50%,0% 10%);
+}
+.minical{
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+}
+.minitimes{
+  display: grid;
+  grid-template-rows: 33% 34% 33%;
+}
+.eventborder{
+  box-sizing: border-box;
+  border: 2px solid var(--logocolor);
+}
