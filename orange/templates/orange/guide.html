@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{% static 'orange/css/guide.css' %}">
 <link rel="stylesheet" href="{% static 'orange/css/events.css' %}">
 
-<div id="guide" class="neweventpage">
+<div id="page1" class="neweventpage">
   <div class="guidehouse">
     <div class="topbar">
       <div class="x togguide"><div class="xclip"></div></div>
@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <div class="guidebody">
+    <div class="guidebody page1body">
 
       <div class="guideitem fullfill">
         <div class="leftitem fullfill">
@@ -84,7 +84,40 @@
         </div>
       </div>
 
-      <div class="guideitem fullfill">
+      <div class="bottomitem fullfill">
+        <div class="fullfill"></div>
+        <div class="next">
+          <div class="center">
+            {{language.guide13}}
+          </div>
+        </div>
+        <div class="fullfill nextnext">
+          <div class="arrow nextarrow"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="page2" class="neweventpage">
+  <div class="guidehouse">
+    <div class="topbar">
+      <div class="x togguide"><div class="xclip"></div></div>
+      <div class="guidetitle fullfill">
+        <div class="center bigtext guidetext">
+        </div>
+      </div>
+    </div>
+    <div class="guidebody page2body">
+
+      <div class="guidetitle fullfill">
+        <div class="center mediumtext guidetext">
+          {{language.guide3}}
+        </div>
+      </div>
+
+      <div class="moretextitem fullfill">
         <div class="leftitem fullfill">
           <div class="center guidetext">
            {{language.guide8}}
@@ -99,7 +132,7 @@
         </div>
       </div>
 
-      <div class="guideitem fullfill">
+      <div class="moretextitem fullfill">
         <div class="leftitem fullfill">
           <div class="center guidetext">
             {{language.guide9}}
@@ -110,7 +143,7 @@
         </div>
       </div>
 
-      <div class="guideitem fullfill">
+      <div class="moretextitem fullfill">
         <div class="leftitem fullfill">
           <div class="center guidetext">
             {{language.guide10}}
@@ -121,7 +154,7 @@
         </div>
       </div>
 
-      <div class="guideitem fullfill">
+      <div class="moretextitem fullfill">
         <div class="leftitem fullfill">
           <div class="center guidetext">
             {{language.guide11}}
@@ -132,7 +165,7 @@
         </div>
       </div>
 
-      <div class="guideitem fullfill">
+      <div class="moretextitem fullfill">
         <div class="leftitem fullfill">
           <div class="center guidetext">
             {{language.guide12}}
@@ -143,26 +176,31 @@
         </div>
       </div>
 
-      <div id="nextpage" class="bottomitem fullfill">
+      <div class="bottomitem fullfill">
+        <div class="fullfill prevprev">
+          <div class="arrow prevarrow"></div>
+        </div>
         <div class="next">
           <div class="center">
             {{language.guide13}}
           </div>
         </div>
-        <div class="arrow"></div>
+        <div class="fullfill nextnext">
+          <div class="arrow nextarrow"></div>
+        </div>
       </div>
 
     </div>
   </div>
 </div>
 
-<div id="pagetwo" class="neweventpage">
+<div id="page3" class="neweventpage">
   <div class="guidehouse">
     <div class="topbar">
-      <div id="closeguide" class="x"><div class="xclip"></div></div>
+      <div class="x togguide"><div class="xclip"></div></div>
     </div>
 
-    <div class="pagetwobody">
+    <div class="guidebody page3body">
 
       <div class="guidetitle fullfill">
         <div class="center bigtext guidetext">
@@ -238,7 +276,7 @@
           </div>
         </div>
         <div class="rightitem">
-          <div class="removebutton eventhousebutton">
+          <div class="examplebutton removebutton eventhousebutton">
             <div class="fullfill trashhouse">
               <div class="saveclip"></div>
             </div>
@@ -249,54 +287,17 @@
         </div>
       </div>
 
-      <div class="finalitem fullfill">
-        <div class="leftitem fullfill">
-          <div class="center guidetext">
-            {{language.guide19}}
+      <div class="bottomitem fullfill">
+        <div class="fullfill prevprev">
+          <div class="arrow prevarrow"></div>
+        </div>
+        <div class="next">
+          <div class="center">
+            {{language.guide13}}
           </div>
         </div>
-        <div class="rightitem">
-
-          <div class="event bodymargin eventborder">
-
-            <div class="datebanner">
-              <span class="bigtext">05</span>
-              <span class="smalltext">December 2025</span>
-            </div>
-
-            <div class="nametext mediumsmalltext">Fondue Night</div>
-
-            <div class="clocktext">
-
-              <div class="clockclip"></div>
-              <span>18 {{language.guide20}}</span>
-              <span>&nbsp; - &nbsp;</span>
-              <span>20 {{language.guide20}}</span>
-            </div>
-
-            <div class="descriptiontext smalltext">
-              Good Cheese, Good People
-            </div>
-
-            <div class="descriptiontext hostedby">
-              <span>Hosted by: </span><a> Fondue Lovers</a>
-            </div>
-
-            <div class="eventlink">
-              <a class="batterybutton batterytopcolor">
-                <div class="fullfill batterytopcolor">
-                  <div class="clipstyle linkclip linkcolor"></div>
-                </div>
-                <div class="fullfill batterybodyclip linkcolor">
-                  <div id="batterytextoption" class="center batterytext batterytextolor">
-                    Fondue Night
-                  </div>
-                </div>
-              </a>
-            </div>
-
-          </div>
-
+        <div class="fullfill nextnext">
+          <div class="arrow nextarrow"></div>
         </div>
       </div>
 
@@ -304,6 +305,72 @@
   </div>
 </div>
 
+<div id="page4" class="neweventpage">
+  <div class="guidehouse">
+    <div class="topbar">
+      <div class="x togguide"><div class="xclip"></div></div>
+    </div>
+    <div class="guidebody page4body">
+
+      <div class="guidetitle fullfill">
+        <div class="center bigtext guidetext">
+          {{language.guide19}}
+        </div>
+      </div>
+
+      <div class="fullfill minievent">
+        <div class="event bodymargin eventborder testevent">
+
+          <div class="datebanner">
+            <span class="bigtext">05</span>
+            <span class="smalltext">December 2025</span>
+          </div>
+          <div class="nametext mediumsmalltext">Fondue Night</div>
+          <div class="clocktext">
+
+            <div class="clockclip"></div>
+            <span>18 {{language.guide20}}</span>
+            <span>&nbsp; - &nbsp;</span>
+            <span>20 {{language.guide20}}</span>
+          </div>
+          <div class="descriptiontext smalltext">
+            Good Cheese, Good People
+          </div>
+          <div class="descriptiontext hostedby">
+            <span>Hosted by: </span><a> Fondue Lovers</a>
+          </div>
+
+          <div class="eventlink">
+            <a class="batterybutton batterytopcolor">
+              <div class="fullfill batterytopcolor">
+                <div class="clipstyle linkclip linkcolor"></div>
+              </div>
+              <div class="fullfill batterybodyclip linkcolor">
+                <div id="batterytextoption" class="center batterytext batterytextolor">
+                  Fondue Night
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="bottomitem fullfill">
+        <div class="fullfill prevprev">
+          <div class="arrow prevarrow"></div>
+        </div>
+        <div class="next">
+          <div class="center">
+            {{language.guide13}}
+          </div>
+        </div>
+        <div class="fullfill"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 

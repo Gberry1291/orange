@@ -7,6 +7,7 @@
     <title></title>
   </head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#C4A4E4">
   <link rel="shortcut icon" type="image/png" href="{% static 'orange/favicon/orange.png' %}"/>
   <link rel="stylesheet"  href="{% static 'orange/css/nav.css' %}">
   <script src="{% static 'orange\jquery-3.6.0.min.js' %}"></script>
@@ -91,17 +92,17 @@
 
         <div id="signinbot1" class="signbotdiv" style="display:table;">
           <div style="display:table-cell;vertical-align:middle;">
-            <div>{{navlang.goal}}</div>
+            <div class="secondarytext">{{navlang.goal}}</div>
           </div>
         </div>
         <div id="signinbot2" class="signbotdiv" style="display:table;">
           <div style="display:table-cell;vertical-align:middle;">
-            <div>{{navlang.contact}}</div>
+            <div class="secondarytext">{{navlang.contact}}</div>
           </div>
         </div>
         <a href="{% url 'calander' %}" id="signinbot3" class="signbotdiv" style="display:table;">
           <div style="display:table-cell;vertical-align:middle;">
-            <div>{{navlang.ecal}}</div>
+            <div class="secondarytext">{{navlang.ecal}}</div>
           </div>
         </a>
         <div id="signinbot4" class="signbotdiv">

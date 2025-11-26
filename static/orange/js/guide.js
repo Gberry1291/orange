@@ -1,18 +1,31 @@
 var guidetogelements=document.querySelectorAll(".togguide")
+var selectedpage=1
 guidetogelements.forEach((item) => {
   item.addEventListener("click",function(){
-    document.getElementById('guide').classList.toggle("selected")
+    document.getElementById("page"+selectedpage).classList.toggle("selected")
   })
 });
 
-document.getElementById("nextpage").addEventListener("click",nextpage)
-
 function nextpage(){
-  document.getElementById('pagetwo').classList.toggle("selected")
-  document.getElementById('guide').classList.toggle("selected")
+  document.getElementById("page"+selectedpage).classList.toggle("selected");
+  selectedpage+=1;
+  document.getElementById("page"+selectedpage).classList.toggle("selected");
+}
+function prevpage(){
+  document.getElementById("page"+selectedpage).classList.toggle("selected");
+  selectedpage-=1;
+  document.getElementById("page"+selectedpage).classList.toggle("selected");
 }
 
-document.getElementById("closeguide").addEventListener("click",function(){
-  document.getElementById('pagetwo').classList.remove("selected")
-  document.getElementById('guide').classList.remove("selected")
-})
+var nextnext=document.querySelectorAll(".nextnext")
+var prevprev=document.querySelectorAll(".prevprev")
+nextnext.forEach((item) => {
+  item.addEventListener("click",function(){
+    nextpage()
+  })
+});
+prevprev.forEach((item) => {
+  item.addEventListener("click",function(){
+    prevpage()
+  })
+});
