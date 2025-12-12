@@ -21,19 +21,19 @@
           <div class="center menuclip"></div>
         </div>
 
-        <a class="navitem" href="{% url 'home' %}">
+        {% if request.get_full_path == '/' %}<div class="noanchor navitem">{% else %}<a class="noanchor navitem" href="{% url 'home' %}">{% endif %}
           <img fetchpriority="high" width="100%" height="100%" src="{{STATIC_PREFIX}}orange/css/propics/logo.svg" class="custom-logo" alt="orangerie logo" decoding="async">
-        </a>
+        {% if request.get_full_path == '/' %}</div>{% else %}</a>{% endif %}
 
       </div>
       <div class="right">
-        <a  href="{% url 'calander' %}" id="calander" class="calhouse" >
+        {% if request.get_full_path == '/calander' %}<div  href="{% url 'calander' %}" id="calander" class="calhouse" >{% else %}<a  href="{% url 'calander' %}" id="calander" class="calhouse" >{% endif %}
           <div class="fullfill month"><div id="monthnav" class="center">Month</div></div>
           <div class="fullfill navday"><div id="daynav" class="center">28</div></div>
           <div class="fullfill weekday"><div id="daydaynav" class="center">friday</div></div>
-        </a>
+        {% if request.get_full_path == '/calander' %}</div>{% else %}</a>{% endif %}
         {% if user.is_authenticated %}
-          <a href="{% url 'profile' %}" id="settings" class="navitemsmall profileback" ><div class="center profileclip"></div></a>
+          <{% if request.get_full_path == '/profile' %}div{% else %}a href="{% url 'profile' %}"{% endif %} id="settings" class="navitemsmall profileback" ><div class="center profileclip"></div></{% if request.get_full_path == '/profile' %}div{% else %}a{% endif %}>
           <form class="navitem reversenavitem form" method="post" action="{% url 'accounts:logout' %}">
             {% csrf_token %}
             <button type="submit" id="logout" class="fullfill">
@@ -90,21 +90,24 @@
 
         <div id="linediv"></div>
 
-        <div id="signinbot1" class="signbotdiv" style="display:table;">
+        <{% if request.get_full_path == '/about' %}div{% else %}a href="{% url 'about' %}"{% endif %} id="signinbot1" class="signbotdiv" style="display:table;">
           <div style="display:table-cell;vertical-align:middle;">
             <div class="secondarytext">{{navlang.goal}}</div>
           </div>
-        </div>
-        <div id="signinbot2" class="signbotdiv" style="display:table;">
+        </{% if request.get_full_path == '/about' %}div{% else %}a{% endif %}>
+
+        <{% if request.get_full_path == '/goal' %}div{% else %}a href="{% url 'goal' %}"{% endif %} id="signinbot2" class="signbotdiv" style="display:table;">
           <div style="display:table-cell;vertical-align:middle;">
             <div class="secondarytext">{{navlang.contact}}</div>
           </div>
-        </div>
-        <a href="{% url 'calander' %}" id="signinbot3" class="signbotdiv" style="display:table;">
+        </{% if request.get_full_path == '/goal' %}div{% else %}a{% endif %}>
+
+        <{% if request.get_full_path == '/profile' %}div{% else %}a href="{% url 'calander' %}"{% endif %} id="signinbot3" class="signbotdiv" style="display:table;">
           <div style="display:table-cell;vertical-align:middle;">
             <div class="secondarytext">{{navlang.ecal}}</div>
           </div>
-        </a>
+        </{% if request.get_full_path == '/profile' %}div{% else %}a{% endif %}>
+
         <div id="signinbot4" class="signbotdiv">
           <div class="langhouse">
             <div class="fullfill langop" data-lang="en">

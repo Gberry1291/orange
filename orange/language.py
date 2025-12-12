@@ -139,7 +139,9 @@ languagedic={
             "taken2":" is already in use.",
             "eve1":"Event Created Succesfully",
             "eve2":"An Event With that name already Exisits, no duplicates allowed!"
-        }
+        },
+        "about":{},
+        "goal":{}
     },
   "de":{
         "home":{
@@ -218,6 +220,7 @@ languagedic={
         "event_form":{
             "name":"Event Name",
             "des":"Beschreibung",
+            "full":"Vollständige Beschreibung der Veranstaltung",
             "add":"Zusätzliche Informationen (kurz halten)",
             "host":"Gastorganisation",
             "price":"Preis (standardmäßig kostenlos)",
@@ -271,6 +274,8 @@ languagedic={
             "sendemails":"E-Mail(s) senden",
             "emailsub":"E-Mail-Betreff",
             "emailhead":"E-Mail-Header",
-        }
+        },
+        "about":{},
+        "goal":{}
     }
  }

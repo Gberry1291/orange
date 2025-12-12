@@ -1,0 +1,59 @@
+.banner{
+  background-image: url("propics/nurseryback.png");
+  width:100%;
+  aspect-ratio: 2.11 / 1;
+  border-radius: 40px;
+  background-size: contain;
+  margin-top:10%;
+  margin-bottom:10%;
+}
+.bannertext{
+  font-size: 1.3em;
+  text-align: center;
+  font-weight: bolder;
+  margin-bottom:7%;
+}
+.visiontext{
+  text-align: center;
+  margin-left: 5%;
+  margin-right: 5%;
+  width:90%;
+  margin-bottom:20%;
+}
+.card{
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom:7%;
+  width:90%;
+  height:30%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.cardimg{
+  width:100%;
+  aspect-ratio:1/1;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+}
+.cardtext{
+  display: grid;
+  grid-template-rows: 20% 80%;
+}
+.cardtitle{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.carddes{
+  margin:5%;
+  text-align:left;
+}
+.img1{
+  background-image: url("propics/card1.png");
+}
+.img2{
+  background-image: url("propics/card2.png");
+}
+.img3{
+  background-image: url("propics/card3.png");
+}

@@ -69,6 +69,40 @@ class Welcomepage(TemplateView):
         args = {"from":"calander","navlang":languagedic[languagecookie]["nav"]}
         return render(request,self.template_name,args)
 
+class Aboutpage(TemplateView):
+    template_name= 'orange/about.html'
+    def get(self, request):
+
+        languagecookie="de"
+        try:
+            languagecookie=request.COOKIES["language"]
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
+
+        args = {"from":"about","navlang":languagedic[languagecookie]["nav"],"about":languagedic[languagecookie]["about"]}
+        return render(request,self.template_name,args)
+
+class Goalpage(TemplateView):
+    template_name= 'orange/goal.html'
+    def get(self, request):
+
+        languagecookie="de"
+        try:
+            languagecookie=request.COOKIES["language"]
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
+
+        args = {"from":"about","navlang":languagedic[languagecookie]["nav"],"goal":languagedic[languagecookie]["goal"]}
+        return render(request,self.template_name,args)
+
 class Signin(TemplateView):
 
     def post(self,request):
